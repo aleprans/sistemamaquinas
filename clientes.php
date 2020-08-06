@@ -1,22 +1,22 @@
 <?php
 
-/*include('rotinas/conexao.php');
-*/
+include_once('connect.php');
+
+
+
+
+if (isset($_POST['enviar'])) {
+  
+  $erros = array();
+  
+
+  if (empty($nome)) {
+    $erros[] = "<li> O campo nome não pode ser vazio </li>";
+  }
+
+}
+
 ?>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap');
-@font-face {
-    font-family: 'FonteLogo';
-    src: url("../_fonts/bubblegum-sans-regular.otf");
-}
-
-div#central {
- margin: 100px  0px 0px 200px;
-}
-
-</style>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -29,11 +29,13 @@ div#central {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/estilo/estilo.css">
 	  
     <title>Control Maquinas</title>
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
+    <script src="/script/cliente.js"></script>
     <!-- Bootstrap -->
     <link href="bootstrap/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -216,11 +218,23 @@ div#central {
 
         <div class="right_col" role="main">
           <h3>Clientes</h3>
-        <div id="central" name="central">  
+          
+          <?php
+
+            if(!empty($erros)):
+              foreach($erros as $erro):
+                echo $erro;
+              endforeach;
+            endif;
+          ?>
+
+        <div id="central" name="central">
+          <form action="incluirCliente.php" method="post" id="form" onSubmit="return validar()">
           <div class="col-sm-6 col-md-6">
             <label for="nome">Nome: </label>
             <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do cliente" autocomplete="off" maxlength="50">
-            </div>
+            <input type="hidden" name="id_cli" id="id_cli">
+            </div> 
             <div class="col-sm-6 col-md-3">
             <label for="tel">Celular: </label>
             <input type="text" name="tel" id="tel" class="form-control" placeholder="Celular do cliente" autocomplete="off" maxlength="14"><br>
@@ -231,20 +245,25 @@ div#central {
           </div>  
           <div class="col-sm-6 col-md-2">
             <label for="num">Numero:  </label>
-            <input type="text" name="num" id="num" class="form-control" placeholder="Numero do cliente" maxlength="5"><br>
+            <input type="text" name="num" id="num" class="form-control" placeholder="Numero do cliente" autocomplete="off" maxlength="5"><br>
           </div>
           <div class="col-sm-6 col-md-4">
             <label for="bar">Bairro:  </label>
-            <input type="text" name="bar" id="bar" class="form-control" placeholder="Bairro do cliente" maxlength="20"><br>
+            <input type="text" name="bar" id="bar" class="form-control" placeholder="Bairro do cliente" autocomplete="off" maxlength="20"><br>
           </div>
           <div class="col-sm-6 col-md-4">
             <label for="cid">Cidade:  </label>
-            <input type="text" name="cid" id="cid" class="form-control" placeholder="Cidade do cliente" maxlength="20">
+            <input type="text" name="cid" id="cid" class="form-control" placeholder="Cidade do cliente" autocomplete="off" maxlength="20">
           </div>  
           <div class="col-sm-6 col-md-1">
             <label for="est">Estado:  </label>
-            <input type="text" name="est" id="est" class="form-control" placeholder="UF" maxlength="2">
+            <input type="text" name="est" id="est" class="form-control" placeholder="UF" autocomplete="off" maxlength="2"><br>
           </div>
+          <div class="col-sm-6 col-md-4">
+          <input id="enviar" name="enviar" value="Salvar" type="submit" class="btn btn-success btn-lg" ></button>
+          <button id="cancelar" type="reset" class="btn btn-cancel btn-lg" onClick="$('#id_cli').val('')" >Cancelar</button>
+          </div>
+          </form>  
         </div> 
         </div>
       </div>

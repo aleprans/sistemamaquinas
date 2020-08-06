@@ -1,8 +1,54 @@
 <?php
 
-/*include('rotinas/conexao.php');
-*/
+include_once('connect.php');
+
+$sql = "SELECT id_cliente, cliente, celular FROM clientes";
+$resultado = mysqli_query($connect, $sql);
+
 ?>
+
+<style>
+
+textarea#desc {
+  margin-bottom: 20px;
+ 
+}
+
+textarea#pec {
+  margin-bottom: 20px;
+  margin-right: 0px;
+ 
+}
+
+input#equip {
+  margin-bottom: 10px;
+}
+
+input#fim {
+  margin: 30px 0px 10px 0px;
+}
+
+label#lfim {
+  margin-bottom: 50px;
+}
+
+select#cliente {
+  margin-bottom: 20px;
+}
+
+div#central {
+ margin: 50px  0px 0px 200px;
+}
+
+button#enviar {
+  margin: 10px 10px 0px 0px;
+}
+
+button#cancelar {
+  margin: 10px 1px 0px 10px;
+}
+
+</style>
 
 
 <!DOCTYPE html>
@@ -20,6 +66,7 @@
     <title>Control Maquinas</title>
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
     <!-- Bootstrap -->
     <link href="bootstrap/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -62,10 +109,12 @@
             <br>
             <div class="navbar nav_title" style="border:0;">
             <img class="" src="imagens/logo.jpg" style="height: 80px; margin-left: 70px; background-size: contain; background-repeat: no-repeat;background-position: center;">
+            
             </div>
 
             <div class="clearfix"></div>
             <br />
+
           
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
@@ -198,62 +247,58 @@
           </div>
         </div>
      
-
         <div class="right_col" role="main">
           <h3>Serviços</h3>
-        <div class="clearfix"></div>
-
-          <div class="x_content">
-            <form id="cadastroForm" name="cadform" method="POST" action="insert_info_jr.php" enctype="multipart/form-data" >
-              <div class="row">
-                <input type="hidden" id="requerente"  name="requerente" class="form-control" value="7" />
-                <!-- LOCALIZAÇÃO  -->
-                <div class=" col-sm-6 col-md-6 col-lg-6">
-                  <label for="localizacao">Selecione a cidade que seja suporte</label>
-                  <select id="localizacao" name="localizacao" class="form-control" required> </select>                            
-                </div>
-                <!-- CATEGORIA -->
-                <div class="col-sm-6 col-md-6 ">
-                  <label for="categoria">Selecione o modulo do sistema</label>
-                  <select id="categoria" name="categoria" class="form-control" required ></select>                            
-                </div>    
-              </div>         
-              <br>
-              <!-- TITULO -->
-              <label for="assunto">Assunto:</label>
-              <input type="text" id="assunto" class="form-control" name="assunto"  autocomplete="off" required  />
-              <br>
-              <!-- MENSAGEM -->
-              <div id="msg" class="alert alert-success" role="alert"style="display:none; text-align: center">
-                Enviado com sucesso!
-              </div>
-              <label for="mensagem">Mensagem</label>
-              <textarea id="content" name="content" rows="15"  class="form-control" data-parsley-trigger="keyup" required></textarea>
-              <br/>
-              <!-- ARQUIVOS-->
+          
+        <div id="central" name="central">
+          <form action="incluirServico.php" method="post" id="form" name="form">
+          <div class="col-sm-6 col-md-6">
+            <label for="nome">Cliente: </label>
+            <select name="cliente" id="cliente" class="form-control">
+              <option value="0">Selecione um cliente</option>
+              <?php while($dados = $resultado->fetch_array()) {?>
+                         
+                <option value="<?php echo $dados['id_cliente']; ?>" ><?php echo $dados['cliente']; ?> - <?php echo $dados['celular']; ?></option>
               
-              <div id="fileupload" class="container"style="display: inline-flex">
-                <input style="display:none" type="file" onchange="updateList()" name="arquivos[]" id="arquivos" multiple="multiple">
-                <label style="padding-top:12px" class="btn btn-primary" for="arquivos">Selecionar arquivos</label>
-                <!--div class="col-md-9 col-sm-9 col-xs-2 "-->
-                <button type="button" style="display:flex" onclick="enviar()" class="btn btn-success btn-lg" >Enviar</button>
-                  <!--input type="submit" name="enviar" id="enviar" onclick="enviar()" class="btn btn-success btn-lg" /-->
-              </div> 
-                <div id="exibe"></div>
-              <!--/div-->
-              </div>
-              <br/> 
-              <br/> 
-              <br/>  
-
-              <div class="row" >
-                          
-              </div>
-
-            </form>
-           
+              <?php }?>
+            </select>
             
+            </div>
+            <div class="col-sm-6 col-md-3">
+            <label for="equip">Equipamento: </label>
+            <input type="text" name="equip" id="equip" class="form-control" placeholder="Equipamento do cliente" autocomplete="off" maxlength="30"><br>
           </div>
+          <div class="col-sm-6 col-md-4">
+            <label for="desc">Descrição: </label>
+            <textarea name="desc" id="desc" cols="70" rows="4" maxlength="350" placeholder="Descrição do serviço executado" autocomplete="off"></textarea><br>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <label for="pec">Peças: </label>
+            <textarea name="pec" id="pec" cols="70" rows="4" maxlength="350" placeholder="Descrição do serviço executado" autocomplete="off"></textarea>
+          </div>
+          <div class="col-sm-6 col-md-2">
+            <input type="checkbox" name="fim" id="fim" ></textarea><br>
+            <label for="fim" id="lfim">Finalizado: </label>
+          </div>  
+          <div class="col-sm-6 col-md-3">
+            <label for="val_pec">Valor peças:  </label>
+            <input type="number" name="val_pec" id="val_pec" class="form-control" placeholder="Valor das peças" maxlength="5"><br>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <label for="val">Valor Total:  </label>
+            <input type="number" name="val" id="val" class="form-control" placeholder="Valor Total do serviço" maxlength="5"><br>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <label for="dat">Data :  </label>
+            <input type="date" name="dat" id="dat" class="form-control" placeholder="Valor do serviço" maxlength="5"><br>
+          </div>
+          
+          <div class="col-sm-6 col-md-4">
+          <button id="enviar" name="enviar" type="submit" class="btn btn-success btn-lg">Cadastrar</button>
+          <button id="cancelar" type="reset" class="btn btn-cancel btn-lg">Cancelar</button>
+          </div>
+          </form>  
+        </div> 
         </div>
       </div>
     </div>
@@ -297,51 +342,28 @@
 <script src="bootstrap/gentelella-master/vendors/starrr/dist/starrr.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="bootstrap/gentelella-master/build/js/custom.min.js"></script>    
-   
+<!--Mascaras-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+
 <script type="text/javascript">
 
-  $('#localizacao').select2({
-              ajax:{
-                 url: 'buscar_select_loc.php',
-                 dataType: 'json',
-                 delay: 250,
-                 type: 'POST',
-                 data: function (params) {
-                    return { term: params.term, page_limit: 50 };
-                 },
-                 processResults: function (data) {
-                    return { results: data };
-                 },
-                 
-                 cache: true
-              },
+$(document).ready(function(){
+  $('#cliente').on('change',function() {
+    if ($(this).val() == 0) {
+      $('#form').each(function(){
+        this.reset()
+      })
+    } else {
+    var $tel = $("input[name='tel']")
 
-              escapeMarkup: function (markup) { return markup; },
-              placeholder: {id: '-1', text: 'Selecione a Cidade'},
-              width: '100%',
-              language: 'pt-BR'
-           });
+    $.getJSON('pesq_cliente.php', {
+      cliente: $(this).val()
+    },function(json) {
+      $tel.val(json.tel)
+    })
+  }
+  })
+})
 
-  $('#categoria').select2({
-              ajax: {
-                 url: 'buscar_select_cat.php',
-                 dataType: 'json',
-                 delay: 250,
-                 type: 'POST',
-                 data: function (params) {
-                    return { term: params.term, page_limit: 50 };
-                 },
-                 processResults: function (data) {
-                    return { results: data };
-                 },
-                 cache: true
-              },
-
-              escapeMarkup: function (markup) { return markup; },
-              placeholder: {id: '-1', text: 'Selecione a Categoria'},
-              width: '100%',
-              language: 'pt-BR'
-           });
-          
 </script>
-

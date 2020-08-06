@@ -1,7 +1,7 @@
 <?php
 
-/*include('rotinas/conexao.php');
-*/
+include('listaservicos.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -228,14 +228,20 @@
                             <th data-sortable="true" data-field="id" >Cliente</th>
                             <th data-field="titulo">Equipamento</th>
                             <th data-field="localizacao">Serviço</th>
-                            <th data-field="categoria">Valor</th> 
+                            <th data-field="categoria">Valor total</th> 
                             <th data-field="detalhe">Data execução</th>
                           </tr>
                         </thead>
                           <tbody>
+                          <?php while($dados = $resultado->fetch_array()) {?>
                           <tr>
-                            <td></td>
+                            <td><?php echo $dados['cliente']; ?></td>
+                            <td><?php echo $dados['equipamento']; ?></td>
+                            <td><?php echo $dados['descricao']; ?></td>
+                            <td><?php echo $dados['valor_total']; ?></td>
+                            <td><?php echo $dados['dat_exec']; ?></td>
                           </tr>
+                          <?php }?>
                           </tbody>
                     </table>
                     </div>
