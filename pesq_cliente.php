@@ -3,7 +3,7 @@
 include_once('connect.php');
 
 function retorna($cliente, $connect) {
-    $sql = "SELECT * FROM clientes WHERE cliente = '$cliente'";
+    $sql = "SELECT * FROM clientes WHERE celular = '$cliente'";
     $resultado = mysqli_query($connect, $sql);
     $row_cliente = mysqli_fetch_assoc($resultado);
     $dados['id_cli'] = $row_cliente['id_cliente'];

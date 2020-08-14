@@ -1,5 +1,4 @@
 <?php
-exit;
 include_once('connect.php');
 
 $id_cliente = mysqli_escape_string($connect, $_POST['id_cli']);
@@ -18,7 +17,13 @@ if ($id_cliente > 0) {
     $sql = "INSERT INTO clientes(cliente,  endereco, num, bairro, cidade, uf, celular) VALUES ('$nome', '$end', '$num', '$bairro', '$cidade', '$estado', '$telefone')";
     $resultado = mysqli_query($connect, $sql);
 }
-    header('Location: clientes.php');
 
+if (!$resultado) {
+    echo json_encode(['status'=>false, 'msg'=>'Conexão Falhou!']);
+    mysqli_close($connect);
+}else {
+    echo json_encode(['status'=>true, 'msg'=>'Dados Inseridos com Sucesso!']);
+    mysqli_close($connect);
+}
 
 ?>

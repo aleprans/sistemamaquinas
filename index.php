@@ -89,7 +89,7 @@ include('listaservicos.php');
                       <li><a href="clientes.php">Cliente</a></li>
                       <li><a href="servicos.php">Serviços</a></li>
                       <li><a href="financeiro.php">Financeiro</a></li>
-                      <li><a href="suporte.php">Suporte</a></li>
+                      <li><a href="suporte.php">Agenda</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -114,7 +114,7 @@ include('listaservicos.php');
           </div>
         </div>
 
-        
+        <!--
         <div class="top_nav">
           <div class="nav_menu">
             <nav>
@@ -209,7 +209,7 @@ include('listaservicos.php');
             </nav>
           </div>
         </div>
-     
+        -->
 
         <div class="right_col" role="main">
           <h3>Lista de Serviços</h3>

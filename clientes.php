@@ -32,6 +32,8 @@ if (isset($_POST['enviar'])) {
     <link rel="stylesheet" href="/estilo/estilo.css">
 	  
     <title>Control Maquinas</title>
+
+
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
@@ -94,7 +96,7 @@ if (isset($_POST['enviar'])) {
                       <li><a href="clientes.php">Cliente</a></li>
                       <li><a href="servicos.php">Serviços</a></li>
                       <li><a href="financeiro.php">Financeiro</a></li>
-                      <li><a href="suporte.php">Suporte</a></li>
+                      <li><a href="suporte.php">Agenda</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -119,7 +121,7 @@ if (isset($_POST['enviar'])) {
           </div>
         </div>
 
-        
+        <!--
         <div class="top_nav">
           <div class="nav_menu">
             <nav>
@@ -214,38 +216,39 @@ if (isset($_POST['enviar'])) {
             </nav>
           </div>
         </div>
-     
+        -->
 
         <div class="right_col" role="main">
-          <h3>Clientes</h3>
+          <h1>Clientes</h1>
           
-          <?php
+          <!--?php
 
             if(!empty($erros)):
               foreach($erros as $erro):
                 echo $erro;
               endforeach;
             endif;
-          ?>
+          ?-->
 
         <div id="central" name="central">
-          <form action="incluirCliente.php" method="post" id="form" onSubmit="return validar()">
-          <div class="col-sm-6 col-md-6">
-            <label for="nome">Nome: </label>
-            <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do cliente" autocomplete="off" maxlength="50">
-            <input type="hidden" name="id_cli" id="id_cli">
-            </div> 
-            <div class="col-sm-6 col-md-3">
+          <form action="incluirCliente.php" method="post" id="form">
+           
+          <div class="col-sm-6 col-md-3">
             <label for="tel">Celular: </label>
             <input type="text" name="tel" id="tel" class="form-control" placeholder="Celular do cliente" autocomplete="off" maxlength="14"><br>
+          </div>
+          <div class="col-sm-6 col-md-6" id="list_nome">
+            <label for="nome">Nome: </label>
+            <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do cliente" autocomplete="off" maxlength="50"><br>
+            <input type="hidden" name="id_cli" id="id_cli">
           </div>
           <div class="col-sm-6 col-md-7">
             <label for="end">Enderço: </label>
             <input type="text" name="end" id="end" class="form-control" placeholder="Endereço do cliente" autocomplete="off" maxlength="50">
           </div>  
           <div class="col-sm-6 col-md-2">
-            <label for="num">Numero:  </label>
-            <input type="text" name="num" id="num" class="form-control" placeholder="Numero do cliente" autocomplete="off" maxlength="5"><br>
+            <label for="num">Numero / Compl:  </label>
+            <input type="text" name="num" id="num" class="form-control" placeholder="Numero" autocomplete="off" maxlength="9"><br>
           </div>
           <div class="col-sm-6 col-md-4">
             <label for="bar">Bairro:  </label>
@@ -259,8 +262,8 @@ if (isset($_POST['enviar'])) {
             <label for="est">Estado:  </label>
             <input type="text" name="est" id="est" class="form-control" placeholder="UF" autocomplete="off" maxlength="2"><br>
           </div>
-          <div class="col-sm-6 col-md-4">
-          <input id="enviar" name="enviar" value="Salvar" type="submit" class="btn btn-success btn-lg" ></button>
+          <div class="col-sm-5 col-md-5">
+          <input id="enviar" name="enviar" value="Salvar" type="button" class="btn btn-success btn-lg" onClick="validar()"></button>
           <button id="cancelar" type="reset" class="btn btn-cancel btn-lg" onClick="$('#id_cli').val('')" >Cancelar</button>
           </div>
           </form>  
@@ -312,5 +315,5 @@ if (isset($_POST['enviar'])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
 <script type="text/javascript">
-$("#tel").mask("(00) 00000-0000")
+$("#tel").mask("(00)00000-0000")
 </script>
