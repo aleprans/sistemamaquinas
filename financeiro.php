@@ -70,20 +70,20 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 
-                <ul class="nav side-menu">
+              <ul class="nav side-menu">
                   <li><a href="index.php"><i class="fa fa-home"></i> Pagina Inicial </a></li>
-                  <li><a><i class="fa fa-edit"></i> Itens do sistema <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Menu do sistema <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="clientes.php">Cliente</a></li>
-                      <li><a href="servicos.php">Serviços</a></li>
+                      <li><a href="listaClientes.php">Cliente</a></li>
+                      <li><a href="listaservicos.php">Serviços</a></li>
                       <li><a href="financeiro.php">Financeiro</a></li>
-                      <li><a href="suporte.php">Suporte</a></li>
+                      <li><a href="agenda.php">Agenda</a></li>
                     </ul>
                   </li>
                 </ul>
               </div>
             </div>
- 
+            
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>

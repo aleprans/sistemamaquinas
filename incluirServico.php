@@ -2,20 +2,27 @@
 
 include_once('connect.php');
 
-$nome = mysqli_escape_string($connect, $_POST['nome']);
-$end = mysqli_escape_string($connect, $_POST['end']);
-$num = mysqli_escape_string($connect, $_POST['num']);
-$bairro = mysqli_escape_string($connect, $_POST['bar']);
-$cidade = mysqli_escape_string($connect, $_POST['cid']);
-$estado = mysqli_escape_string($connect, $_POST['est']);
-$telefone = mysqli_escape_string($connect, $_POST['tel']);
+$cli = mysqli_escape_string($connect, $_POST['id_cliente']);
+$equi = mysqli_escape_string($connect, $_POST['equi']);
+$desc = mysqli_escape_string($connect, $_POST['desc']);
+$peca = mysqli_escape_string($connect, $_POST['peca']);
+$fim = mysqli_escape_string($connect, $_POST['final']);
+$vpeca = mysqli_escape_string($connect, $_POST['vpeca']);
+$val = mysqli_escape_string($connect, $_POST['val']);
+$data = mysqli_escape_string($connect, $_POST['data']);
 
-if (!empty($nome)) {
-    
-$sql = "INSERT INTO clientes(cliente,  endereco, num, bairro, cidade, uf, celular) VALUES ('$nome', '$end', '$num', '$bairro', '$cidade', '$estado', '$telefone')";
-$resultado = mysqli_query($connect, $sql);
-header('Location: clientes.php');
+if (!empty($cli)) {
+  
+    $sql = "INSERT INTO servicos(cliente, equipamento, descricao, pecas, fim, valor_pecas, valor_total, dat_exec) VALUES ('$cli', '$equi', '$desc', '$peca', '$fim', '$vpeca', '$val', '$data')";
+    $resultado = mysqli_query($connect, $sql);
 }
-echo ('teste');
+
+if (!$resultado) {
+    echo json_encode(['status'=>false, 'msg'=>'Conexão falhou!']);
+    mysqli_close($connect);
+}else {
+    echo json_encode(['status'=>true, 'msg'=>'Dados inseridos com sucesso!']);
+    mysqli_close($connect);
+}
 
 ?>

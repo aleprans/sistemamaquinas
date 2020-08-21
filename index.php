@@ -1,6 +1,10 @@
 <?php
 
-include('listaservicos.php');
+include_once('connect.php');
+
+$sql = "select a.cliente, b.* from servicos as b, clientes as a where a.id_cliente = b.id_cliente order by a.cliente";
+
+$resultado = mysqli_query($connect, $sql);
 
 ?>
 
@@ -17,6 +21,7 @@ include('listaservicos.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
     <title>Control Maquinas</title>
+    <script src="/script/servico.js"></script>
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
@@ -44,12 +49,6 @@ include('listaservicos.php');
     <!-- Custom Theme Style -->
     <link href="bootstrap/gentelella-master/build/css/custom.min.css" rel="stylesheet">
 
-    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars 
-    <link rel="stylesheet" href="js/jQuery-File-Upload/css/jquery.fileupload.css">
-    <link rel="stylesheet" href="js/jQuery-File-Upload/css/jquery.fileupload-ui.css">
-
-    -->
-
 
   </head>
 
@@ -64,19 +63,6 @@ include('listaservicos.php');
             </div>
 
             <div class="clearfix"></div>
-            
-            <!--
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                 <img src="bootstrap/gentelella-master/production/images/img.jpg" class="img-circle profile_img" alt="..."> 
-              </div>
-              <div class="profile_info">
-                <span>Bem-Vindo,</span>
-                <h2>Walter </h2>
-              </div>
-            </div>
-            -->
-                       
 
             <br />
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -86,10 +72,10 @@ include('listaservicos.php');
                   <li><a href="index.php"><i class="fa fa-home"></i> Pagina Inicial </a></li>
                   <li><a><i class="fa fa-edit"></i> Menu do sistema <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="clientes.php">Cliente</a></li>
-                      <li><a href="servicos.php">Serviços</a></li>
+                      <li><a href="listaClientes.php">Cliente</a></li>
+                      <li><a href="listaservicos.php">Serviços</a></li>
                       <li><a href="financeiro.php">Financeiro</a></li>
-                      <li><a href="suporte.php">Agenda</a></li>
+                      <li><a href="agenda.php">Agenda</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -113,137 +99,20 @@ include('listaservicos.php');
             
           </div>
         </div>
-
-        <!--
-        <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-
-              <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Teste 
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Perfil</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Configuracao</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Ajuda</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i>  Deslogar</a></li>
-                  </ul>
-                </li>
-
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-        -->
-
         <div class="right_col" role="main">
-          <h3>Lista de Serviços</h3>
+        <h1 style="text-align: center">Control Maquinas</h1>
+         <!--img src="imagens/logo200.jpg" style="height: 400px; background-size: contain; background-repeat: no-repeat;background-position: center;"-->
           <div class="clearfix"></div>
 
-          <img src="imagens/rolling.gif" id="loading-indicator" style="display:none;"/>
+          <!--img src="imagens/rolling.gif" id="loading-indicator" style="display:none;"/-->
           <div class="content">
             <div class="animated fadeIn">
               <div class="row">
                 <div class="col-md-12">
                   <div class="card">
-                    <div class="card-body col-sm-12 col-xs-12">
-                      <table id="id_table_usuario" class="table table-striped table-bordered" data-search="true" data-sort-class="table-active" data-sortable="true" data-locale="pt-BR" data-height="550" data-toolbar=".toolbar" data-search="true"  data-show-toggle="true"  data-pagination="true">
-                        <thead>
-                          <tr>
-                            <th data-sortable="true" data-field="id" >Cliente</th>
-                            <th data-field="titulo">Equipamento</th>
-                            <th data-field="localizacao">Serviço</th>
-                            <th data-field="categoria">Valor total</th> 
-                            <th data-field="detalhe">Data execução</th>
-                          </tr>
-                        </thead>
-                          <tbody>
-                          <?php while($dados = $resultado->fetch_array()) {?>
-                          <tr>
-                            <td><?php echo $dados['cliente']; ?></td>
-                            <td><?php echo $dados['equipamento']; ?></td>
-                            <td><?php echo $dados['descricao']; ?></td>
-                            <td><?php echo $dados['valor_total']; ?></td>
-                            <td><?php echo $dados['dat_exec']; ?></td>
-                          </tr>
-                          <?php }?>
-                          </tbody>
-                    </table>
+                    <!--div class="card-body col-sm-12 col-xs-12"-->
+                    <div class = "table-responsive">
+                      
                     </div>
                   </div>
                 </div>
@@ -259,10 +128,8 @@ include('listaservicos.php');
             </div>
           </div>
         </div>
-    
-    <footer>
-    </footer>
-    
+        
+        
   </body>
 </html>
 <!-- jQuery -->

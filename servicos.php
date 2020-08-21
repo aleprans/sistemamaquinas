@@ -64,10 +64,13 @@ button#cancelar {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
     <title>Control Maquinas</title>
+
+    
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
+    
     <!-- Bootstrap -->
     <link href="bootstrap/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -119,14 +122,14 @@ button#cancelar {
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 
-                <ul class="nav side-menu">
+              <ul class="nav side-menu">
                   <li><a href="index.php"><i class="fa fa-home"></i> Pagina Inicial </a></li>
-                  <li><a><i class="fa fa-edit"></i> Itens do sistema <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Menu do sistema <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="clientes.php">Cliente</a></li>
-                      <li><a href="servicos.php">Serviços</a></li>
+                      <li><a href="listaClientes.php">Cliente</a></li>
+                      <li><a href="listaservicos.php">Serviços</a></li>
                       <li><a href="financeiro.php">Financeiro</a></li>
-                      <li><a href="suporte.php">Suporte</a></li>
+                      <li><a href="agenda.php">Agenda</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -151,7 +154,7 @@ button#cancelar {
           </div>
         </div>
 
-        
+        <!--
         <div class="top_nav">
           <div class="nav_menu">
             <nav>
@@ -246,12 +249,12 @@ button#cancelar {
             </nav>
           </div>
         </div>
-     
+        -->
         <div class="right_col" role="main">
           <h3>Serviços</h3>
           
         <div id="central" name="central">
-          <form action="incluirServico.php" method="post" id="form" name="form">
+          <form id="form" name="form">
           <div class="col-sm-6 col-md-6">
             <label for="nome">Cliente: </label>
             <select name="cliente" id="cliente" class="form-control">
@@ -266,36 +269,37 @@ button#cancelar {
             </div>
             <div class="col-sm-6 col-md-3">
             <label for="equip">Equipamento: </label>
-            <input type="text" name="equip" id="equip" class="form-control" placeholder="Equipamento do cliente" autocomplete="off" maxlength="30"><br>
+            <input type="text" name="equip" id="equip" class="form-control" placeholder="Equipamento do cliente" autocomplete="off" maxlength="30" disabled="true"><br>
           </div>
           <div class="col-sm-6 col-md-4">
             <label for="desc">Descrição: </label>
-            <textarea name="desc" id="desc" cols="70" rows="4" maxlength="350" placeholder="Descrição do serviço executado" autocomplete="off"></textarea><br>
+            <textarea name="desc" id="desc" cols="70" rows="4" maxlength="350" placeholder="Descrição do serviço executado" autocomplete="off" disabled="true"></textarea><br>
           </div>
           <div class="col-sm-6 col-md-4">
             <label for="pec">Peças: </label>
-            <textarea name="pec" id="pec" cols="70" rows="4" maxlength="350" placeholder="Descrição do serviço executado" autocomplete="off"></textarea>
+            <textarea name="pec" id="pec" cols="70" rows="4" maxlength="350" placeholder="Peças que foram trocadas" autocomplete="off" disabled="true"></textarea>
           </div>
           <div class="col-sm-6 col-md-2">
-            <input type="checkbox" name="fim" id="fim" ></textarea><br>
+            <input type="checkbox" name="fim" id="fim" disabled="true"></textarea><br>
+            <input type="hidden" name="fim2" id="fim2">
             <label for="fim" id="lfim">Finalizado: </label>
           </div>  
           <div class="col-sm-6 col-md-3">
             <label for="val_pec">Valor peças:  </label>
-            <input type="number" name="val_pec" id="val_pec" class="form-control" placeholder="Valor das peças" maxlength="5"><br>
+            <input type="number" name="val_pec" id="val_pec" class="form-control" placeholder="Valor das peças" maxlength="5" disabled="true"><br>
           </div>
           <div class="col-sm-6 col-md-3">
             <label for="val">Valor Total:  </label>
-            <input type="number" name="val" id="val" class="form-control" placeholder="Valor Total do serviço" maxlength="5"><br>
+            <input type="decimal" name="val" id="val" class="form-control" placeholder="Valor Total do serviço" disabled="true"><br>
           </div>
           <div class="col-sm-6 col-md-3">
-            <label for="dat">Data :  </label>
-            <input type="date" name="dat" id="dat" class="form-control" placeholder="Valor do serviço" maxlength="5"><br>
+            <label for="dat">Data de execusão:  </label>
+            <input type="date" name="dat" id="dat" class="form-control" disabled="true"><br>
           </div>
           
           <div class="col-sm-6 col-md-4">
-          <button id="enviar" name="enviar" type="submit" class="btn btn-success btn-lg">Cadastrar</button>
-          <button id="cancelar" type="reset" class="btn btn-cancel btn-lg">Cancelar</button>
+          <input id="enviar" name="enviar" value="Salvar" type="button" class="btn btn-success btn-lg" onClick="validar()" disabled= "true"></button>
+          <button id="cancelar" type="reset" class="btn btn-cancel btn-lg" onClick="limpar()" >Cancelar</button>
           </div>
           </form>  
         </div> 
@@ -345,25 +349,5 @@ button#cancelar {
 <!--Mascaras-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
+<script src="/script/listaservicos.js"></script>
 
-<script type="text/javascript">
-
-$(document).ready(function(){
-  $('#cliente').on('change',function() {
-    if ($(this).val() == 0) {
-      $('#form').each(function(){
-        this.reset()
-      })
-    } else {
-    var $tel = $("input[name='tel']")
-
-    $.getJSON('pesq_cliente.php', {
-      cliente: $(this).val()
-    },function(json) {
-      $tel.val(json.tel)
-    })
-  }
-  })
-})
-
-</script>

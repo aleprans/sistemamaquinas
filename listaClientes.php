@@ -1,20 +1,12 @@
 <?php
 
+
 include_once('connect.php');
 
+$sql = "select * from clientes";
 
+$resultado = mysqli_query($connect, $sql);
 
-
-if (isset($_POST['enviar'])) {
-  
-  $erros = array();
-  
-
-  if (empty($nome)) {
-    $erros[] = "<li> O campo nome não pode ser vazio </li>";
-  }
-
-}
 
 ?>
 
@@ -29,15 +21,12 @@ if (isset($_POST['enviar'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/estilo/estilo.css">
 	  
     <title>Control Maquinas</title>
-
-
+    <script src="/script/listaClientes.js"></script>
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
-    
     <!-- Bootstrap -->
     <link href="bootstrap/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -67,7 +56,13 @@ if (isset($_POST['enviar'])) {
     <link rel="stylesheet" href="js/jQuery-File-Upload/css/jquery.fileupload-ui.css">
 
     -->
+  <style>
+    td#tdnull {
+      text-align: center;
+      font-size: 20px;
+    }
 
+  </style>
 
   </head>
 
@@ -79,13 +74,24 @@ if (isset($_POST['enviar'])) {
             <br>
             <div class="navbar nav_title" style="border:0;">
             <img class="" src="imagens/logo.jpg" style="height: 80px; margin-left: 70px; background-size: contain; background-repeat: no-repeat;background-position: center;">
-            
             </div>
 
             <div class="clearfix"></div>
-            <br />
+            
+            <!--
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                 <img src="bootstrap/gentelella-master/production/images/img.jpg" class="img-circle profile_img" alt="..."> 
+              </div>
+              <div class="profile_info">
+                <span>Bem-Vindo,</span>
+                <h2>Walter </h2>
+              </div>
+            </div>
+            -->
+                       
 
-          
+            <br />
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 
@@ -122,49 +128,67 @@ if (isset($_POST['enviar'])) {
         </div>
 
         <div class="right_col" role="main">
-          <h1>Clientes</h1>
-          
-        <div id="central" name="central">
-          <form action="incluirCliente.php" method="post" id="form">
-           
-          <div class="col-sm-6 col-md-3">
-            <label for="tel">Celular: </label>
-            <input type="text" name="tel" id="tel" class="form-control" placeholder="Celular do cliente" autocomplete="off" maxlength="14" ><br>
+          <h3>Lista de Clientes</h3>
+          <div class="clearfix"></div>
+
+          <div class="content">
+            <div class="animated fadeIn">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class = "table-responsive">
+                      <table id="id_table_usuario" class="table table-hover" data-search="true" data-sort-class="table-active" data-sortable="true" data-locale="pt-BR" data-height="550" data-toolbar=".toolbar" data-search="true"  data-show-toggle="true"  data-pagination="true">
+                        <thead>
+                          <tr>
+                            <th data-sortable="true" data-field="id" >Cliente</th>
+                            <th >Celular</th>
+                            <th >endereço</th>
+                            <th >Numero</th>
+                            <th >bairro</th>
+                            <th >cidade</th>
+                            <th >UF</th> 
+                          </tr>
+                        </thead>
+                          <tbody>
+                          <?php 
+                          $row = mysqli_num_rows($resultado);
+                          if ($row > 0) {
+                            while ($dados = $resultado->fetch_array()) {?>
+                              <tr>
+                                <td><?php echo $dados['cliente']; ?></td>
+                                <td><?php echo $dados['celular']; ?></td>
+                                <td><?php echo $dados['endereco']; ?></td>
+                                <td><?php echo $dados['num']; ?></td>
+                                <td><?php echo $dados['bairro']; ?></td>
+                                <td><?php echo $dados['cidade']; ?></td>
+                                <td><?php echo $dados['uf']; ?></td>
+                                <td><button class="btn btn-primary btn-sm" onclick="editar(<?php echo $dados['id_cliente'];?>)"><i class="fa fa-pencil"></i></button></td>
+                                <td><button class="btn btn-danger btn-sm" onclick="excluir(<?php echo $dados['id_cliente'];?>)"><i class="fa fa-trash"></i> </button></td>
+                              </tr><?php 
+                            }}else {?>
+                              <td id="tdnull"colspan="7">Nenhum Cliente Cadastrado</td><?php
+                            }?>
+                            
+                          </tbody>
+                          
+                    </table>
+                    <button class="btn btn-success btn-lg"><i class="fa fa-user-plus" onclick="window.location = 'clientes.php'"></i> </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div id="theModal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                  </div>
+                </div>
+              </div>
+            
+            </div>
           </div>
-          <div class="col-sm-6 col-md-6" id="list_nome">
-            <label for="nome">Nome: </label>
-            <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do cliente" autocomplete="off" maxlength="50" disabled="true"><br>
-            <input type="hidden" name="id_cli" id="id_cli">
-          </div>
-          <div class="col-sm-6 col-md-7">
-            <label for="end">Enderço: </label>
-            <input type="text" name="end" id="end" class="form-control" placeholder="Endereço do cliente" autocomplete="off" maxlength="50" disabled="true">
-          </div>  
-          <div class="col-sm-6 col-md-2">
-            <label for="num">Numero / Compl:  </label>
-            <input type="text" name="num" id="num" class="form-control" placeholder="Numero" autocomplete="off" maxlength="9" disabled="true"><br>
-          </div>
-          <div class="col-sm-6 col-md-4">
-            <label for="bar">Bairro:  </label>
-            <input type="text" name="bar" id="bar" class="form-control" placeholder="Bairro do cliente" autocomplete="off" maxlength="20" disabled="true"><br>
-          </div>
-          <div class="col-sm-6 col-md-4">
-            <label for="cid">Cidade:  </label>
-            <input type="text" name="cid" id="cid" class="form-control" placeholder="Cidade do cliente" autocomplete="off" maxlength="20" disabled="true">
-          </div>  
-          <div class="col-sm-6 col-md-1">
-            <label for="est">Estado:  </label>
-            <input type="text" name="est" id="est" class="form-control" placeholder="UF" autocomplete="off" maxlength="2" disabled="true"><br>
-          </div>
-          <div class="col-sm-5 col-md-5">
-          <input id="enviar" name="enviar" value="Salvar" type="button" class="btn btn-success btn-lg" onClick="validar()" disabled="true"></button>
-          <button id="cancelar" type="reset" class="btn btn-cancel btn-lg" onClick="limpar()" >Cancelar</button>
-          </div>
-          </form>  
-        </div> 
         </div>
-      </div>
-    </div>
+    
     <footer>
     </footer>
     
@@ -205,9 +229,3 @@ if (isset($_POST['enviar'])) {
 <script src="bootstrap/gentelella-master/vendors/starrr/dist/starrr.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="bootstrap/gentelella-master/build/js/custom.min.js"></script>    
-<!--Mascaras-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-<script src="/script/cliente.js"></script>
-<script type="text/javascript">
-$("#tel").mask("(00)00000-0000")
-</script>

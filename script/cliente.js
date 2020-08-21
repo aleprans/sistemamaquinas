@@ -1,4 +1,4 @@
-function enviar(){
+  function enviar(){
       
   var form_data = new FormData();
   form_data.append('id_cli', document.getElementById('id_cli').value);
@@ -24,7 +24,6 @@ function enviar(){
       if(data.status == true){
           alert(data.msg)
         
-          //$('#exibe>ul').remove()
           $('#id_cli').val('')
           $('#nome').val('')
           $('#tel').val('')
@@ -45,33 +44,72 @@ function enviar(){
     
 }
 function validar() {
-  var msg = "Campo inválido!"
+  
+  var tel = document.getElementById("tel").value
+  if (tel.length < 14) {
+    alert ('Campo Telefone inválido')
+    $('#tel').focus()
+    exit
+  }
+
   var name = document.getElementById("nome")
   if (name.value == "") {
-    alert (msg)
+    alert ('Campo nome inválido')
     name.focus()
     exit
   }
 
-  var tel = document.getElementById("tel")
-  if (tel.value == "") {
-    alert (msg)
-    tel.focus()
-    exit
-  }
+  
 enviar()
 }
 
 // Pesquisa cliente
 
 $(document).ready(function(){
+  function queryString(parameter) {
+    var loc = location.search.substring(1, location.search.length)
+    var param_value = false
+    var params = loc.split("&")
+    for (i=0; i<params.length; i++) {
+        param_name = params[i].substring(0,params[i].indexOf('='))
+        if (param_name == parameter) {
+            param_value = params[i].substring(params[i].indexOf('=')+1)
+        }
+    }
+    if (param_value) {
+        return param_value
+    } else {
+        return undefined
+    }
+  }
+  
+  var id_cliente = queryString("id_cli")
+
+  if (id_cliente) {
+    var $nam = $("#nome")
+    var $tel = $("#tel")
+    var $end = $("#end")
+    var $num = $("#num")
+    var $bar = $("#bar")
+    var $cid = $("#cid")
+    var $est = $("#est")
+    var $idc = $("#id_cli")
+    $.getJSON('pesq_cliente.php', {
+      id_cliente: id_cliente
+    },function(json) {
+      $nam.val(json.nom)
+      $tel.val(json.tel)
+      $end.val(json.end)
+      $num.val(json.num)
+      $bar.val(json.bar)
+      $cid.val(json.cid)
+      $est.val(json.est)
+      $idc.val(json.id_cli)
+      $tel.attr('disabled', true)
+  })}else {
+
   $('#tel').focus()
   $('#tel').blur(function() {
-    if ($(this).val() == 0) {
-      $('#form').each(function(){
-        this.reset()
-      })
-    }
     var $nam = $("#nome")
     var $tel = $("#tel")
     var $end = $("#end")
@@ -83,13 +121,6 @@ $(document).ready(function(){
     $.getJSON('pesq_cliente.php', {
       cliente: $(this).val()
     },function(json) {
-      /*if (json.length > 1) {
-        var divList = document.createElement("div")
-        var itemLista = document.createElement("li")
-        divList.appendChild(itemLista)
-        var divAtual = document.GetElementById('list_nome')
-        divAtual.appendCild(divList)
-      }*/
       $nam.val(json.nom)
       $tel.val(json.tel)
       $end.val(json.end)
@@ -98,23 +129,33 @@ $(document).ready(function(){
       $cid.val(json.cid)
       $est.val(json.est)
       $idc.val(json.id_cli)
-      $('#tel').focus()
     })
-    
-  })
+    disable()
+    // verificar ativação
+
+function disable(){
+  if ($tel.val() != "") {
+      $nam.attr('disabled', false)
+      $end.attr('disabled', false)
+      $num.attr('disabled', false)
+      $bar.attr('disabled', false)
+      $cid.attr('disabled', false)
+      $est.attr('disabled', false)
+     $('#enviar').attr('disabled', false)
+    }else {
+       $nam.attr('disabled', true)
+      $end.attr('disabled', true)
+      $num.attr('disabled', true)
+      $bar.attr('disabled', true)
+      $cid.attr('disabled', true)
+      $est.attr('disabled', true)
+     $('#enviar').attr('disabled', true)
+    }
+}
+  })}
+
 
   // Textos em maiusculos
-
-  $('#tel').on('change', function() {
-    $('#id_cli').val('')
-    $('#nome').val('')
-    //$('#tel').val('')
-    $('#end').val('')
-    $('#num').val('')
-    $('#bar').val('')
-    $('#cid').val('')
-    $('#est').val('')
-  })
 
   $('#nome').blur(function() {
     var tx = $('#nome').val()
@@ -146,3 +187,27 @@ $(document).ready(function(){
     $('#est').val(tx.toUpperCase())
   })
 })
+  
+  //Limpa campos
+
+  function limpar(){
+   
+    $('#id_cli').val('')
+    var $tel = $('#tel')
+    $tel.attr('disabled', false)
+    $tel.on('change', function() {
+      //$('#id_cli').val('')
+      $('#nome').val('')
+      $('#end').val('')
+      $('#num').val('')
+      $('#bar').val('')
+      $('#cid').val('')
+      $('#est').val('')
+    })
+    if ($tel.val() == "") {
+      window.location = 'listaClientes.php'
+    }else {
+    window.location ='clientes.php'
+    //$tel.focus()
+    }
+  }
