@@ -21,37 +21,14 @@
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
+  
     <!-- Bootstrap -->
     <link href="bootstrap/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="bootstrap/gentelella-master/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="bootstrap/gentelella-master/vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="bootstrap/gentelella-master/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- bootstrap-wysiwyg -->
-    <link href="bootstrap/gentelella-master/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
-    <!-- Select2 -->
-    <link href="bootstrap/gentelella-master/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
-    <!-- Switchery -->
-    <link href="bootstrap/gentelella-master/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
-    <!-- starrr -->
-    <link href="bootstrap/gentelella-master/vendors/starrr/dist/starrr.css" rel="stylesheet">
-    <!-- bootstrap-daterangepicker -->
-    <link href="bootstrap/gentelella-master/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-    <!-- Dropzone.js -->
-    <link href="bootstrap/gentelella-master/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="bootstrap/gentelella-master/build/css/custom.min.css" rel="stylesheet">
-
-    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars 
-    <link rel="stylesheet" href="js/jQuery-File-Upload/css/jquery.fileupload.css">
-    <link rel="stylesheet" href="js/jQuery-File-Upload/css/jquery.fileupload-ui.css">
-
-    -->
-
-
+    
   </head>
 
   <body class="nav-md">
@@ -102,105 +79,8 @@
           </div>
         </div>
 
-        
-        <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-
-              <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Teste 
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Perfil</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Configuracao</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Ajuda</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i>  Deslogar</a></li>
-                  </ul>
-                </li>
-
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-     
-
         <div class="right_col" role="main">
-          <h3>Formulario de suporte</h3>
+          <h3>Controle Financeiro</h3>
         <div class="clearfix"></div>
 
           <div class="x_content">
@@ -300,48 +180,48 @@
    
 <script type="text/javascript">
 
-  $('#localizacao').select2({
-              ajax:{
-                 url: 'buscar_select_loc.php',
-                 dataType: 'json',
-                 delay: 250,
-                 type: 'POST',
-                 data: function (params) {
-                    return { term: params.term, page_limit: 50 };
-                 },
-                 processResults: function (data) {
-                    return { results: data };
-                 },
+//   $('#localizacao').select2({
+//               ajax:{
+//                  url: 'buscar_select_loc.php',
+//                  dataType: 'json',
+//                  delay: 250,
+//                  type: 'POST',
+//                  data: function (params) {
+//                     return { term: params.term, page_limit: 50 };
+//                  },
+//                  processResults: function (data) {
+//                     return { results: data };
+//                  },
                  
-                 cache: true
-              },
+//                  cache: true
+//               },
 
-              escapeMarkup: function (markup) { return markup; },
-              placeholder: {id: '-1', text: 'Selecione a Cidade'},
-              width: '100%',
-              language: 'pt-BR'
-           });
+//               escapeMarkup: function (markup) { return markup; },
+//               placeholder: {id: '-1', text: 'Selecione a Cidade'},
+//               width: '100%',
+//               language: 'pt-BR'
+//            });
 
-  $('#categoria').select2({
-              ajax: {
-                 url: 'buscar_select_cat.php',
-                 dataType: 'json',
-                 delay: 250,
-                 type: 'POST',
-                 data: function (params) {
-                    return { term: params.term, page_limit: 50 };
-                 },
-                 processResults: function (data) {
-                    return { results: data };
-                 },
-                 cache: true
-              },
+//   $('#categoria').select2({
+//               ajax: {
+//                  url: 'buscar_select_cat.php',
+//                  dataType: 'json',
+//                  delay: 250,
+//                  type: 'POST',
+//                  data: function (params) {
+//                     return { term: params.term, page_limit: 50 };
+//                  },
+//                  processResults: function (data) {
+//                     return { results: data };
+//                  },
+//                  cache: true
+//               },
 
-              escapeMarkup: function (markup) { return markup; },
-              placeholder: {id: '-1', text: 'Selecione a Categoria'},
-              width: '100%',
-              language: 'pt-BR'
-           });
+//               escapeMarkup: function (markup) { return markup; },
+//               placeholder: {id: '-1', text: 'Selecione a Categoria'},
+//               width: '100%',
+//               language: 'pt-BR'
+//            });
           
 </script>
 

@@ -1,47 +1,88 @@
-  function enviar(){
-      
-  var form_data = new FormData();
-  form_data.append('id_cli', document.getElementById('id_cli').value);
-  form_data.append('nome', document.getElementById('nome').value);
-  form_data.append('tel', document.getElementById('tel').value);
-  form_data.append('end', document.getElementById('end').value);
-  form_data.append('num', document.getElementById('num').value);
-  form_data.append('bar', document.getElementById('bar').value);
-  form_data.append('cid', document.getElementById('cid').value);
-  form_data.append('est', document.getElementById('est').value);
+// Variaveis em Comuns
+var $env = $('#enviar')
+var $nam = $("#nome")
+var $tel = $("#tel")
+var $end = $("#end")
+var $num = $("#num")
+var $bar = $("#bar")
+var $cid = $("#cid")
+var $est = $("#est")
+var $idc = $("#id_cli")
+
+// Abilitar campos
+function abilitar(){
+  $nam.attr('disabled', false)
+  $end.attr('disabled', false)
+  $num.attr('disabled', false)
+  $bar.attr('disabled', false)
+  $cid.attr('disabled', false)
+  $est.attr('disabled', false)
+  $idc.attr('disabled', false)
+  $tel.attr('disabled', false)
+  $env.attr('disabled', false)
+}
+
+// Desabilitar campos
+function desabilitar(){
+  $nam.attr('disabled', true)
+  $end.attr('disabled', true)
+  $num.attr('disabled', true)
+  $bar.attr('disabled', true)
+  $cid.attr('disabled', true)
+  $est.attr('disabled', true)
+  $idc.attr('disabled', true)
+  $tel.attr('disabled', true)
+  $env.attr('disabled', true)
+}
+
+// Limpar url
+function limpar(){
+  if ($tel.val()){
+    window.location = "clientes.php"
+  }else {
+    window.location = "listaClientes.php"
+  }
+}
+
+// Enviar dados pro Banco de Dados
+function enviar(){
     
-  $.ajax({
-    url:'incluirCliente.php',
-    type:'post',
-    dataType:'json',
-    enctype: 'multipart/form-data',
-    processData: false,
-    contentType: false,
-    cache: false,
-    data:form_data,
-    success:function(data){
-      
-      if(data.status == true){
-          alert(data.msg)
-        
-          $('#id_cli').val('')
-          $('#nome').val('')
-          $('#tel').val('')
-          $('#end').val('')
-          $('#num').val('')
-          $('#bar').val('')
-          $('#cid').val('')
-          $('#est').val('')
-      }else{
-        
+var form_data = new FormData();
+form_data.append('id_cli', document.getElementById('id_cli').value);
+form_data.append('nome', document.getElementById('nome').value);
+form_data.append('tel', document.getElementById('tel').value);
+form_data.append('end', document.getElementById('end').value);
+form_data.append('num', document.getElementById('num').value);
+form_data.append('bar', document.getElementById('bar').value);
+form_data.append('cid', document.getElementById('cid').value);
+form_data.append('est', document.getElementById('est').value);
+  
+$.ajax({
+  url:'incluirCliente.php',
+  type:'post',
+  dataType:'json',
+  enctype: 'multipart/form-data',
+  processData: false,
+  contentType: false,
+  cache: false,
+  data:form_data,
+  success:function(data){
+    
+    if(data.status == true){
         alert(data.msg)
-      }
-    },
-    error:function(e){
-      console.log(e)
+      window.location = "listaClientes.php"
+
+    }else{
+      
+      alert(data.msg)
     }
-  });
-    
+  },
+  error:function(e){
+    console.log(e)
+  }
+});
+
+// Validação de campos obrigatórios
 }
 function validar() {
   
@@ -58,12 +99,11 @@ function validar() {
     name.focus()
     exit
   }
-
-  
 enviar()
 }
 
-// Pesquisa cliente
+
+// Pesquisar ID na url
 
 $(document).ready(function(){
   function queryString(parameter) {
@@ -85,15 +125,11 @@ $(document).ready(function(){
   
   var id_cliente = queryString("id_cli")
 
+
+  // Pesquisa Cliente pela url
+
   if (id_cliente) {
-    var $nam = $("#nome")
-    var $tel = $("#tel")
-    var $end = $("#end")
-    var $num = $("#num")
-    var $bar = $("#bar")
-    var $cid = $("#cid")
-    var $est = $("#est")
-    var $idc = $("#id_cli")
+    
     $.getJSON('pesq_cliente.php', {
       id_cliente: id_cliente
     },function(json) {
@@ -105,19 +141,13 @@ $(document).ready(function(){
       $cid.val(json.cid)
       $est.val(json.est)
       $idc.val(json.id_cli)
-      $tel.attr('disabled', true)
+      abilitar()
   })}else {
+
+// Pesquisa Cliente por tel
 
   $('#tel').focus()
   $('#tel').blur(function() {
-    var $nam = $("#nome")
-    var $tel = $("#tel")
-    var $end = $("#end")
-    var $num = $("#num")
-    var $bar = $("#bar")
-    var $cid = $("#cid")
-    var $est = $("#est")
-    var $idc = $("#id_cli")
     $.getJSON('pesq_cliente.php', {
       cliente: $(this).val()
     },function(json) {
@@ -129,33 +159,21 @@ $(document).ready(function(){
       $cid.val(json.cid)
       $est.val(json.est)
       $idc.val(json.id_cli)
+      })
+      $nam.val("")
+      $end.val("")
+      $num.val("")
+      $bar.val("")
+      $cid.val("")
+      $est.val("")
+      $idc.val("")
+      abilitar()
+      $nam.focus()
     })
-    disable()
-    // verificar ativação
+    
+  }
 
-function disable(){
-  if ($tel.val() != "") {
-      $nam.attr('disabled', false)
-      $end.attr('disabled', false)
-      $num.attr('disabled', false)
-      $bar.attr('disabled', false)
-      $cid.attr('disabled', false)
-      $est.attr('disabled', false)
-     $('#enviar').attr('disabled', false)
-    }else {
-       $nam.attr('disabled', true)
-      $end.attr('disabled', true)
-      $num.attr('disabled', true)
-      $bar.attr('disabled', true)
-      $cid.attr('disabled', true)
-      $est.attr('disabled', true)
-     $('#enviar').attr('disabled', true)
-    }
-}
-  })}
-
-
-  // Textos em maiusculos
+  // // Textos em maiusculos
 
   $('#nome').blur(function() {
     var tx = $('#nome').val()
@@ -187,27 +205,3 @@ function disable(){
     $('#est').val(tx.toUpperCase())
   })
 })
-  
-  //Limpa campos
-
-  function limpar(){
-   
-    $('#id_cli').val('')
-    var $tel = $('#tel')
-    $tel.attr('disabled', false)
-    $tel.on('change', function() {
-      //$('#id_cli').val('')
-      $('#nome').val('')
-      $('#end').val('')
-      $('#num').val('')
-      $('#bar').val('')
-      $('#cid').val('')
-      $('#est').val('')
-    })
-    if ($tel.val() == "") {
-      window.location = 'listaClientes.php'
-    }else {
-    window.location ='clientes.php'
-    //$tel.focus()
-    }
-  }

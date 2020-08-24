@@ -3,7 +3,7 @@
 
 include_once('connect.php');
 
-$sql = "select * from clientes";
+$sql = "select * from clientes order by cliente";
 
 $resultado = mysqli_query($connect, $sql);
 
@@ -27,35 +27,14 @@ $resultado = mysqli_query($connect, $sql);
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
+ 
     <!-- Bootstrap -->
     <link href="bootstrap/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="bootstrap/gentelella-master/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="bootstrap/gentelella-master/vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="bootstrap/gentelella-master/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- bootstrap-wysiwyg -->
-    <link href="bootstrap/gentelella-master/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
-    <!-- Select2 -->
-    <link href="bootstrap/gentelella-master/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
-    <!-- Switchery -->
-    <link href="bootstrap/gentelella-master/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
-    <!-- starrr -->
-    <link href="bootstrap/gentelella-master/vendors/starrr/dist/starrr.css" rel="stylesheet">
-    <!-- bootstrap-daterangepicker -->
-    <link href="bootstrap/gentelella-master/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-    <!-- Dropzone.js -->
-    <link href="bootstrap/gentelella-master/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="bootstrap/gentelella-master/build/css/custom.min.css" rel="stylesheet">
-
-    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars 
-    <link rel="stylesheet" href="js/jQuery-File-Upload/css/jquery.fileupload.css">
-    <link rel="stylesheet" href="js/jQuery-File-Upload/css/jquery.fileupload-ui.css">
-
-    -->
+    
   <style>
     td#tdnull {
       text-align: center;

@@ -71,6 +71,7 @@ button#cancelar {
     
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
     
+    
     <!-- Bootstrap -->
     <link href="bootstrap/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -94,12 +95,6 @@ button#cancelar {
 
     <!-- Custom Theme Style -->
     <link href="bootstrap/gentelella-master/build/css/custom.min.css" rel="stylesheet">
-
-    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars 
-    <link rel="stylesheet" href="js/jQuery-File-Upload/css/jquery.fileupload.css">
-    <link rel="stylesheet" href="js/jQuery-File-Upload/css/jquery.fileupload-ui.css">
-
-    -->
 
 
   </head>
@@ -154,102 +149,6 @@ button#cancelar {
           </div>
         </div>
 
-        <!--
-        <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-
-              <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Teste 
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Perfil</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Configuracao</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Ajuda</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i>  Deslogar</a></li>
-                  </ul>
-                </li>
-
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-        -->
         <div class="right_col" role="main">
           <h3>Serviços</h3>
           
@@ -264,8 +163,8 @@ button#cancelar {
                 <option value="<?php echo $dados['id_cliente']; ?>" ><?php echo $dados['cliente']; ?> - <?php echo $dados['celular']; ?></option>
               
               <?php }?>
-            </select>
-            
+            </select >
+            <input type="hidden" name="id_serv" id="id_serv">
             </div>
             <div class="col-sm-6 col-md-3">
             <label for="equip">Equipamento: </label>
@@ -280,8 +179,7 @@ button#cancelar {
             <textarea name="pec" id="pec" cols="70" rows="4" maxlength="350" placeholder="Peças que foram trocadas" autocomplete="off" disabled="true"></textarea>
           </div>
           <div class="col-sm-6 col-md-2">
-            <input type="checkbox" name="fim" id="fim" disabled="true"></textarea><br>
-            <input type="hidden" name="fim2" id="fim2">
+            <input type="checkbox" name="fim" id="fim" disabled="true"><br>
             <label for="fim" id="lfim">Finalizado: </label>
           </div>  
           <div class="col-sm-6 col-md-3">
@@ -349,5 +247,5 @@ button#cancelar {
 <!--Mascaras-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
-<script src="/script/listaservicos.js"></script>
+<script src="/script/servicos.js"></script>
 

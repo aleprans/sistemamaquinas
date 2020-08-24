@@ -207,6 +207,7 @@ if (isset($_POST['enviar'])) {
 <script src="bootstrap/gentelella-master/build/js/custom.min.js"></script>    
 <!--Mascaras-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
 <script src="/script/cliente.js"></script>
 <script type="text/javascript">
 $("#tel").mask("(00)00000-0000")
