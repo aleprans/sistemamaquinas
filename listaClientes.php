@@ -21,7 +21,8 @@ $resultado = mysqli_query($connect, $sql);
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
+    <link rel="stylesheet" href="/estilo/estilo.css">
+    
     <title>Control Maquinas</title>
     <script src="/script/listaClientes.js"></script>
     <!-- Ajax -->
@@ -35,13 +36,14 @@ $resultado = mysqli_query($connect, $sql);
     <!-- Custom Theme Style -->
     <link href="bootstrap/gentelella-master/build/css/custom.min.css" rel="stylesheet">
     
+<!--     
   <style>
     td#tdnull {
       text-align: center;
       font-size: 20px;
     }
 
-  </style>
+  </style> -->
 
   </head>
 
@@ -81,7 +83,7 @@ $resultado = mysqli_query($connect, $sql);
                       <li><a href="listaClientes.php">Cliente</a></li>
                       <li><a href="listaservicos.php">Serviços</a></li>
                       <li><a href="financeiro.php">Financeiro</a></li>
-                      <li><a href="agenda.php">Agenda</a></li>
+                      <li><a href="listaAgenda.php">Agenda</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -107,6 +109,7 @@ $resultado = mysqli_query($connect, $sql);
         </div>
 
         <div class="right_col" role="main">
+        <div id="msg" class="alert alert-success fade show" role="alert" style="opacity:0; text-align: center"></div>
           <h3>Lista de Clientes</h3>
           <div class="clearfix"></div>
 
@@ -151,7 +154,7 @@ $resultado = mysqli_query($connect, $sql);
                           </tbody>
                           
                     </table>
-                    <button class="btn btn-success btn-lg"><i class="fa fa-user-plus" onclick="window.location = 'clientes.php'"></i> </button>
+                    <button class="btn btn-success btn-lg" onclick="window.location = 'clientes.php'"><i class="fa fa-user-plus" onclick="window.location = 'clientes.php'"></i> </button>
                     </div>
                   </div>
                 </div>

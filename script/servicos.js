@@ -25,6 +25,7 @@ var id_servico = queryString("id_serv")
 var $desc = $('#desc')
 var $equip = $('#equip')
 var $pec = $('#pec')
+var $cpec = $('#valc_pec')
 var $vpec = $('#val_pec')
 var $vtot = $('#val')
 var $dte = $('#dat')
@@ -40,19 +41,19 @@ $('#cliente').on('change',function() {
     $desc.attr('disabled', true)
     $equip.attr('disabled', true)
     $pec.attr('disabled', true)
+    $cpec.attr('disabled', true)
     $vpec.attr('disabled', true)
     $vtot.attr('disabled', true)
     $dte.attr('disabled', true)
     $fim.attr('disabled', true)
     $env.attr('disabled', true)
     window.location = "servicos.php"
-    // $('#form').each(function(){
-    //   this.reset()
-    // })
+
   } else {
       $desc.attr('disabled', false)
       $equip.attr('disabled', false)
       $pec.attr('disabled', false)
+      $cpec.attr('disabled', false)
       $vpec.attr('disabled', false)
       $vtot.attr('disabled', false)
       $dte.attr('disabled', false)
@@ -70,6 +71,7 @@ if (id_servico) {
     $equip.val(json.equip)
     $desc.val(json.desc)
     $pec.val(json.pec)
+    $cpec.val(json.cpec)
     $vpec.val(json.vpec)
     $vtot.val(json.vto)
     $dte.val(json.dex)
@@ -83,6 +85,7 @@ if (id_servico) {
     $desc.attr('disabled', false)
     $equip.attr('disabled', false)
     $pec.attr('disabled', false)
+    $cpec.attr('disabled', false)
     $vpec.attr('disabled', false)
     $vtot.attr('disabled', false)
     $dte.attr('disabled', false)
@@ -90,7 +93,11 @@ if (id_servico) {
     $env.attr('disabled', false)
   })
 }
+
+//Mascara do valor
 $('#val').mask('#.##0,00', {reverse: true});
+$('#val_pec').mask('#.##0,00', {reverse: true})
+$('#valc_pec').mask('#.##0,00', {reverse: true})
 
 function limpar(){
   if ($('#cliente').val() == 0){
@@ -102,36 +109,89 @@ function limpar(){
 
 //Validando campos
 function validar() {
+  $equip.attr('style', 'border-color:gren')
+  $desc.attr('style', 'border-color:gren')
+  $cpec.attr('style', 'border-color:gren')
+  $vpec.attr('style', 'border-color:gren')
+  $vtot.attr('style', 'border-color:gren')
+  $dte.attr('style', 'border-color:gren')
+  
   var msg = "Campo inválido!"
   if ($equip.val().length < 1) {
-    alert(msg)
+
+    $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+    $('#msg').attr('class', 'alert alert-error')
+    $('#msg').text(msg)
+  setInterval(function(){
+    $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+  }, 5000)
     $equip.focus()
+    $equip.attr('style', 'border-color:red')
     exit
   }
 
   if ($desc.val().length < 1) {
-    alert(msg)
+    $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+    $('#msg').attr('class', 'alert alert-error')
+    $('#msg').text(msg)
+  setInterval(function(){
+    $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+  }, 5000)
     $desc.focus()
+    $desc.attr('style', 'border-color:red')
     exit
   }
 
   if ($pec.val().length > 0) {
+   
+    if ($cpec.val() == 0) {
+      $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+      $('#msg').attr('class', 'alert alert-error')
+      $('#msg').text(msg)
+    setInterval(function(){
+      $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+    }, 5000)
+      $cpec.focus()
+      $cpec.attr('style', 'border-color:red')
+      exit
+    }
+  }
+  
+  if ($cpec.val() > 0) {
     if ($vpec.val() == 0) {
-      alert(msg)
+      $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+      $('#msg').attr('class', 'alert alert-error')
+      $('#msg').text(msg)
+    setInterval(function(){
+      $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+    }, 5000)
       $vpec.focus()
+      $vpec.attr('style', 'border-color:red')
       exit
     }
   }
 
   if ($vtot.val() <= 0 || $vtot.val() <= $vpec.val()) {
-    alert(msg)
+    $('#msg').attr('style', 'opacity:1; transition:opacity 2s' )
+    $('#msg').attr('class', 'alert alert-error')
+    $('#msg').text(msg)
+  setInterval(function(){
+    $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+  }, 5000)
     $vtot.focus()
+    $vtot.attr('style', 'border-color:red')
     exit
   }
 
   if (!$dte.val()) {
-    alert(msg)
+    $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+    $('#msg').attr('class', 'alert alert-error')
+    $('#msg').text(msg)
+  setInterval(function(){
+    $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+  }, 5000)
     $dte.focus()
+    $dte.attr('style', 'border-color:red')
     exit
   }
   enviar()
@@ -147,6 +207,8 @@ $('#equip').blur(function() {
 // Envia dados para o Banco de Dados
 function enviar(){
 
+  var $vtot2 = $vtot.val().replace(",",".")
+
   var form_data = new FormData()
 
   form_data.append('id_servico', id_servico)
@@ -155,8 +217,9 @@ function enviar(){
   form_data.append('desc', $desc.val())
   form_data.append('pec', $pec.val())
   form_data.append('fim', $fim.is(':checked'))
+  form_data.append('cpec', $cpec.val())
   form_data.append('vpec', $vpec.val())
-  form_data.append('vtot', $vtot.val())
+  form_data.append('vtot', $vtot2)
   form_data.append('dte', $dte.val())
 
   $.ajax({
@@ -171,12 +234,21 @@ function enviar(){
     success:function(data){
 
       if(data.status == true){
-        alert(data.msg)
-      window.location = "listaservicos.php"
-
-      }else{
+        $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+        $('#msg').attr('class', 'alert alert-success')
+        $('#msg').text(data.msg)
+      setInterval(function(){
+        $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+        window.location = "listaservicos.php"
+      }, 5000)
       
-          alert(data.msg)
+      }else{
+        $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+        $('#msg').attr('class', 'alert alert-error')
+        $('#msg').text(data.msg)
+      setInterval(function(){
+        $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+      }, 5000)
       }
     },
     error:function(e){

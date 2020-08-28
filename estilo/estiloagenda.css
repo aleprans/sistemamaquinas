@@ -1,0 +1,29 @@
+h3 {
+margin-right: 500px;
+margin-bottom: 50px;
+}
+div#msg {
+    width: 80%;
+    position: fixed;
+    text-align: center;
+}
+
+div#button{
+  margin: 25px 0 50px 25px;
+}
+
+div#button2  {
+  margin-top: 25px;
+  margin-left: 100px;
+}
+
+div#msg {
+  width: 80%;
+  position: fixed;
+  text-align: center;
+}
+
+div#botoes {
+  background-color: red;
+  margin: 50px;
+}

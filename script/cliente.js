@@ -69,12 +69,20 @@ $.ajax({
   success:function(data){
     
     if(data.status == true){
-        alert(data.msg)
-      window.location = "listaClientes.php"
-
+      $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+      $('#msg').attr('class', 'alert alert-success')
+      $('#msg').text(data.msg)
+      setInterval(function(){
+        $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+        window.location = "listaClientes.php"
+      }, 5000)
     }else{
-      
-      alert(data.msg)
+      $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+      $('#msg').attr('class', 'alert alert-error')
+      $('#msg').text(data.msg)
+    setInterval(function(){
+      $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+      }, 5000)
     }
   },
   error:function(e){
@@ -85,18 +93,33 @@ $.ajax({
 // Validação de campos obrigatórios
 }
 function validar() {
-  
-  var tel = document.getElementById("tel").value
-  if (tel.length < 14) {
-    alert ('Campo Telefone inválido')
-    $('#tel').focus()
+  var msg = "Campo Inválido!"
+
+  $tel.attr('style', 'border-color:gren')
+  $nam.attr('style', 'border-color:gren')
+
+  if ($tel.val().length < 14) {
+    $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+    $('#msg').attr('class', 'alert alert-error')
+    $('#msg').text(msg)
+  setInterval(function(){
+    $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+  }, 5000)
+    $tel.focus()
+    $tel.attr('style', 'border-color:red')
     exit
   }
 
-  var name = document.getElementById("nome")
-  if (name.value == "") {
-    alert ('Campo nome inválido')
-    name.focus()
+  
+  if ($nam.val() == "") {
+    $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+    $('#msg').attr('class', 'alert alert-error')
+    $('#msg').text(msg)
+  setInterval(function(){
+    $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+  },5000)
+    $nam.focus()
+    $nam.attr('style', 'border-color:red')
     exit
   }
 enviar()

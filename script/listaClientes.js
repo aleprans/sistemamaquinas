@@ -13,10 +13,20 @@ function excluir(id_cliente) {
             id_cliente: id_cliente
         },function(data) {
             if (data.status == true) {
-                alert(data.msg)
+                $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+                $('#msg').attr('class', 'alert alert-success')
+                $('#msg').text(data.msg)
+              setInterval(function(){
+                $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
                 window.location = "listaClientes.php"
+              }, 5000)
             }else {
-                alert(data.msg)
+                $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
+                $('#msg').attr('class', 'alert alert-error')
+                $('#msg').text(data.msg)
+              setInterval(function(){
+                $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
+              }, 5000)
             }
         }
     )}

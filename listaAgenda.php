@@ -1,23 +1,3 @@
-<?php
-
-include_once('connect.php');
-
-
-
-
-if (isset($_POST['enviar'])) {
-  
-  $erros = array();
-  
-
-  if (empty($nome)) {
-    $erros[] = "<li> O campo nome não pode ser vazio </li>";
-  }
-
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -29,7 +9,7 @@ if (isset($_POST['enviar'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/estilo/estilo.css">
+    <link rel="stylesheet" href="/estilo/estilofinac.css">
 	  
     <title>Control Maquinas</title>
 
@@ -122,47 +102,71 @@ if (isset($_POST['enviar'])) {
         </div>
 
         <div class="right_col" role="main">
-        <div id="msg" class="alert alert-success fade show" role="alert" style="opacity:0; text-align: center" ></div>
-          <h1>Clientes</h1>
+        <div id="msg" class="alert alert-success fade show" role="alert" style="opacity:0; text-align: center"></div>
+          <h1 style="margin-bottom: 40px">Agendamentos</h1>
           
-        <div id="central" name="central">
-          <form action="incluirCliente.php" method="post" id="form">
-           
-          <div class="col-sm-6 col-md-3">
-            <label for="tel">Celular: </label>
-            <input type="text" name="tel" id="tel" class="form-control" placeholder="Celular do cliente" autocomplete="off" maxlength="14" ><br>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label >Data inicial:</label>
+            <input type="date" id="dtini" class="form-control">
           </div>
-          <div class="col-sm-6 col-md-6" id="list_nome">
-            <label for="nome">Nome: </label>
-            <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do cliente" autocomplete="off" maxlength="50" disabled="true"><br>
-            <input type="hidden" name="id_cli" id="id_cli">
+          <div class="form-group col-md-2">
+            <label >Data final:</label>
+            <input type="date" id="dtfim" class="form-control">
           </div>
-          <div class="col-sm-6 col-md-7">
-            <label for="end">Enderço: </label>
-            <input type="text" name="end" id="end" class="form-control" placeholder="Endereço do cliente" autocomplete="off" maxlength="50" disabled="true">
-          </div>  
-          <div class="col-sm-6 col-md-2">
-            <label for="num">Numero / Compl:  </label>
-            <input type="text" name="num" id="num" class="form-control" placeholder="Numero" autocomplete="off" maxlength="9" disabled="true"><br>
+          <div class="form-group col-md-2">
+            <label for="con" >Vizitado:</label>
+            <select name="con" id="con" class="form-control" hint="teste">
+              <option value="2">Todos</option>
+              <option value="0">Não</option>
+              <option value="1">Sim</option>
+            </select>
           </div>
-          <div class="col-sm-6 col-md-4">
-            <label for="bar">Bairro:  </label>
-            <input type="text" name="bar" id="bar" class="form-control" placeholder="Bairro do cliente" autocomplete="off" maxlength="20" disabled="true"><br>
+          <div class="form-group col-md-2" id="button2">
+            <input type="button" class="form-control" value="Limpar" onClick="Limparfiltro()">
           </div>
-          <div class="col-sm-6 col-md-4">
-            <label for="cid">Cidade:  </label>
-            <input type="text" name="cid" id="cid" class="form-control" placeholder="Cidade do cliente" autocomplete="off" maxlength="20" disabled="true">
-          </div>  
-          <div class="col-sm-6 col-md-1">
-            <label for="est">Estado:  </label>
-            <input type="text" name="est" id="est" class="form-control" placeholder="UF" autocomplete="off" maxlength="2" disabled="true"><br>
+          <div class="form-group col-md-2" id="button">
+            <input type="button" class="form-control" value="Buscar" onClick="filtrar()">
           </div>
-          <div class="col-sm-5 col-md-5">
-          <input id="enviar" name="enviar" value="Salvar" type="button" class="btn btn-success btn-lg" onClick="validar()" disabled="true"></button>
-          <button id="cancelar" type="reset" class="btn btn-cancel btn-lg" onClick="limpar()" >Cancelar</button>
+          <div class="content">
+            <div class="animated fadeIn">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class = "table-responsive">
+                      <table id="id_table_usuario" class="table table-hover" data-search="true" data-sort-class="table-active" data-sortable="true" data-locale="pt-BR" data-height="550" data-toolbar=".toolbar" data-search="true"  data-show-toggle="true"  data-pagination="true">
+                        <thead>
+                          <tr>
+                            <th data-sortable="true" data-field="id" >Data</th>
+                            <th >Hora</th>
+                            <th >Cliente</th>
+                            <th >Endereço</th>
+                            <th >Visitado</th>
+                          </tr>
+                        </thead>
+                          <tbody id="tab">
+
+                          </tbody>
+                          
+                    </table>
+                    <button class="btn btn-success btn-lg"><i class="fa fa-user-plus" onclick="window.location = 'agenda.php'"></i> </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div id="theModal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                  </div>
+                </div>
+              </div>
+            
+            </div>
           </div>
+          </div>
+    </div>
           </form>  
-        </div> 
         </div>
       </div>
     </div>
@@ -207,9 +211,9 @@ if (isset($_POST['enviar'])) {
 <!-- Custom Theme Scripts -->
 <script src="bootstrap/gentelella-master/build/js/custom.min.js"></script>    
 <!--Mascaras-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
-<script src="/script/cliente.js"></script>
+<script src="/script/listaAgenda.js"></script>
 <script type="text/javascript">
 $("#tel").mask("(00)00000-0000")
 </script>

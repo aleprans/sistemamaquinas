@@ -1,80 +1,11 @@
 <?php
 
-/*include('rotinas/conexao.php');
-*/
+include_once('connect.php');
+
+$sql = "SELECT id_cliente, cliente, celular FROM clientes";
+$resultado = mysqli_query($connect, $sql);
+
 ?>
-
-<script>
-
-var saveArray = []
-
-updateList = function() {
-  var input = document.getElementById('arquivos');
-  var output = document.getElementById('exibe');
-  var children = "";
-    for (var i = 0; i < input.files.length; ++i) {
-        saveArray.push(input.files.item(i))
-       
-    }
-    for(var i = 0; i < saveArray.length; ++i){
-      children += '<li id="file_'+i+'">' + saveArray[i].name + '<i  onclick="remover(file_'+i+','+i+')" style="margin-left:7px" class="fa fa-times-circle fa-lg text-danger" aria-hidden="true"></i></li>';
-    }
-    output.innerHTML = '<ul >'+children+' </ul>'
-}
-
-function remover(n,cont){
-  var input = document.getElementById('arquivos');
-  $(n).remove()
-  saveArray.splice(cont, 1)
-}
-
-function enviar(){
-      
-  var form_data = new FormData();
-  //var str = $("#cadastroForm").serialize();
-  form_data.append('requerente', document.getElementById('requerente').value);
-  form_data.append('localizacao', document.getElementById('localizacao').value);
-  form_data.append('categoria', document.getElementById('categoria').value);
-  form_data.append('assunto', document.getElementById('assunto').value);
-  form_data.append('content', document.getElementById('content').value);
-  
-  for ( var key in saveArray ) {
-
-      form_data.append(key, saveArray[key]);
-  }
-  
-  $.ajax({
-    url:'insert_info_jr.php',
-    type:'post',
-    dataType:'json',
-    enctype: 'multipart/form-data',
-    processData: false,
-    contentType: false,
-    cache: false,
-    data:form_data,
-    success:function(data){
-      
-      if(data.status == true){
-          alert(data.msg)
-          $('#exibe>ul').remove()
-          $('#localizacao').val('').trigger('change')
-          $('#categoria').val('').trigger('change')
-          $('#requerente').val('')
-          $('#assunto').val('')
-          $('#content').val('')
-          saveArray = []
-      }else{
-        alert(data.msg)
-      }
-    },
-    error:function(e){
-      console.log(e)
-    }
-  });
-    
-}
-
-</script>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -87,19 +18,46 @@ function enviar(){
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/estilo/agenda.css">
 	  
     <title>Control Maquinas</title>
+
+
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
-   
+    
     <!-- Bootstrap -->
     <link href="bootstrap/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="bootstrap/gentelella-master/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="bootstrap/gentelella-master/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="bootstrap/gentelella-master/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-wysiwyg -->
+    <link href="bootstrap/gentelella-master/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="bootstrap/gentelella-master/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="bootstrap/gentelella-master/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="bootstrap/gentelella-master/vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="bootstrap/gentelella-master/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Dropzone.js -->
+    <link href="bootstrap/gentelella-master/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="bootstrap/gentelella-master/build/css/custom.min.css" rel="stylesheet">
-   
+
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars 
+    <link rel="stylesheet" href="js/jQuery-File-Upload/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="js/jQuery-File-Upload/css/jquery.fileupload-ui.css">
+
+    -->
+
+
   </head>
 
   <body class="nav-md">
@@ -110,11 +68,13 @@ function enviar(){
             <br>
             <div class="navbar nav_title" style="border:0;">
             <img class="" src="imagens/logo.jpg" style="height: 80px; margin-left: 70px; background-size: contain; background-repeat: no-repeat;background-position: center;">
+            
             </div>
 
             <div class="clearfix"></div>
-
             <br />
+
+          
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 
@@ -125,7 +85,7 @@ function enviar(){
                       <li><a href="listaClientes.php">Cliente</a></li>
                       <li><a href="listaservicos.php">Serviços</a></li>
                       <li><a href="financeiro.php">Financeiro</a></li>
-                      <li><a href="agenda.php">Agenda</a></li>
+                      <li><a href="listaAgenda.php">Agenda</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -150,158 +110,44 @@ function enviar(){
           </div>
         </div>
 
-        
-        <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-
-              <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Teste 
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Perfil</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Configuracao</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Ajuda</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i>  Deslogar</a></li>
-                  </ul>
-                </li>
-
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-     
-
         <div class="right_col" role="main">
-          <h3>Formulario de suporte</h3>
-        <div class="clearfix"></div>
-
-          <div class="x_content">
-            <form id="cadastroForm" name="cadform" method="POST" action="insert_info_jr.php" enctype="multipart/form-data" >
-              <div class="row">
-                <input type="hidden" id="requerente"  name="requerente" class="form-control" value="7" />
-                <!-- LOCALIZAÇÃO  -->
-                <div class=" col-sm-6 col-md-6 col-lg-6">
-                  <label for="localizacao">Selecione a cidade que seja suporte</label>
-                  <select id="localizacao" name="localizacao" class="form-control" required> </select>                            
-                </div>
-                <!-- CATEGORIA -->
-                <div class="col-sm-6 col-md-6 ">
-                  <label for="categoria">Selecione o modulo do sistema</label>
-                  <select id="categoria" name="categoria" class="form-control" required ></select>                            
-                </div>    
-              </div>         
-              <br>
-              <!-- TITULO -->
-              <label for="assunto">Assunto:</label>
-              <input type="text" id="assunto" class="form-control" name="assunto"  autocomplete="off" required  />
-              <br>
-              <!-- MENSAGEM -->
-              <div id="msg" class="alert alert-success" role="alert"style="display:none; text-align: center">
-                Enviado com sucesso!
-              </div>
-              <label for="mensagem">Mensagem</label>
-              <textarea id="content" name="content" rows="15"  class="form-control" data-parsley-trigger="keyup" required></textarea>
-              <br/>
-              <!-- ARQUIVOS-->
+        <div id="msg" class="alert alert-success fade show" role="alert" style="opacity:0; text-align: center"></div>
+          <h1 id="title">Agendamentos</h1>
+          
+        <div class="form-row">
+          
+            <div class="form-group col-md-4">
+              <input type="hidden" name="id_age" id="id_age">
+               <label for="dtage">Cliente:</label>
+              <select name="cliente" id="cliente" class="form-control">
+                <option value="0">Selecione um cliente</option>
+                <?php while($dados = $resultado->fetch_array()) {?>
+                         
+                <option value="<?php echo $dados['id_cliente']; ?>" ><?php echo $dados['cliente']; ?> - <?php echo $dados['celular']; ?></option>
               
-              <div id="fileupload" class="container"style="display: inline-flex">
-                <input style="display:none" type="file" onchange="updateList()" name="arquivos[]" id="arquivos" multiple="multiple">
-                <label style="padding-top:12px" class="btn btn-primary" for="arquivos">Selecionar arquivos</label>
-                <!--div class="col-md-9 col-sm-9 col-xs-2 "-->
-                <button type="button" style="display:flex" onclick="enviar()" class="btn btn-success btn-lg" >Enviar</button>
-                  <!--input type="submit" name="enviar" id="enviar" onclick="enviar()" class="btn btn-success btn-lg" /-->
-              </div> 
-                <div id="exibe"></div>
-              <!--/div-->
-              </div>
-              <br/> 
-              <br/> 
-              <br/>  
-
-              <div class="row" >
-                          
-              </div>
-
-            </form>
-           
-            
+              <?php }?>
+            </select >
+                <button type="button" id="addcli" title="incluir Novo cliente" data-toggle="tooltip" data-placement="right" class="btn btn-success btn-sm" onClick="window.location ='clientes.php'"><i class="fa fa-plus-square"></i></button>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="cpec">Data:</label>
+                <input type="date" id="dtage" name="dtage" class="form-control">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="hrage">Hora:</label>
+                <input type="time" id="hrage" name="hrage" class="form-control">
+            </div>
+            <div class="col-sm-6 col-md-2"><br>
+            <label for="vis" id="lvis">Visitado: </label><br>
+            <input type="checkbox" name="vis" id="vis" disabled="true"><br>
           </div>
+            <div id="botoes" class="col-sm-5 col-md-5">
+          <input id="enviar" name="enviar" value="Salvar" type="button" class="btn btn-success btn-lg" onClick="validar()" disabled="true"></button>
+          <input id="cancelar" name="cancelar" value="Cancelar" type="button" class="btn btn-outline-dark btn-lg" onClick="limpar()">
+          </div>
+          </div>
+    </div>
+          </form>  
         </div>
       </div>
     </div>
@@ -345,51 +191,7 @@ function enviar(){
 <script src="bootstrap/gentelella-master/vendors/starrr/dist/starrr.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="bootstrap/gentelella-master/build/js/custom.min.js"></script>    
-   
-<script type="text/javascript">
+<!--Mascaras-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
-  $('#localizacao').select2({
-              ajax:{
-                 url: 'buscar_select_loc.php',
-                 dataType: 'json',
-                 delay: 250,
-                 type: 'POST',
-                 data: function (params) {
-                    return { term: params.term, page_limit: 50 };
-                 },
-                 processResults: function (data) {
-                    return { results: data };
-                 },
-                 
-                 cache: true
-              },
-
-              escapeMarkup: function (markup) { return markup; },
-              placeholder: {id: '-1', text: 'Selecione a Cidade'},
-              width: '100%',
-              language: 'pt-BR'
-           });
-
-  $('#categoria').select2({
-              ajax: {
-                 url: 'buscar_select_cat.php',
-                 dataType: 'json',
-                 delay: 250,
-                 type: 'POST',
-                 data: function (params) {
-                    return { term: params.term, page_limit: 50 };
-                 },
-                 processResults: function (data) {
-                    return { results: data };
-                 },
-                 cache: true
-              },
-
-              escapeMarkup: function (markup) { return markup; },
-              placeholder: {id: '-1', text: 'Selecione a Categoria'},
-              width: '100%',
-              language: 'pt-BR'
-           });
-          
-</script>
-
+<script src="/script/agenda.js"></script>

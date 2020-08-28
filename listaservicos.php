@@ -21,7 +21,7 @@ $resultado = mysqli_query($connect, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
     <title>Control Maquinas</title>
-    <script src="/script/listaServicos.js"></script>
+    
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
@@ -79,7 +79,7 @@ $resultado = mysqli_query($connect, $sql);
                       <li><a href="listaClientes.php">Cliente</a></li>
                       <li><a href="listaservicos.php">Serviços</a></li>
                       <li><a href="financeiro.php">Financeiro</a></li>
-                      <li><a href="agenda.php">Agenda</a></li>
+                      <li><a href="listaAgenda.php">Agenda</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -105,6 +105,30 @@ $resultado = mysqli_query($connect, $sql);
         </div>
 
         <div class="right_col" role="main">
+        <div id="msg" class="alert alert-success fade show" role="alert" style="opacity:0; text-align: center"></div>
+
+
+          <!-- Modal -->
+          <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">EXCLUIR ......</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Deseja EXCLUIR definitivamente esse Serviço?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-primary">Excluir</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <h3>Lista de Serviços</h3>
           <div class="clearfix"></div>
 
@@ -123,6 +147,7 @@ $resultado = mysqli_query($connect, $sql);
                             <th >Equipamento</th>
                             <th >Serviço</th>
                             <th >Peças</th>
+                            <th >Custo Peças</th>
                             <th >Valor Peças</th>
                             <th >Valor total</th> 
                             <th >Data execução</th>
@@ -134,11 +159,13 @@ $resultado = mysqli_query($connect, $sql);
                           $row = mysqli_num_rows($resultado);
                           if ($row > 0) {
                             while ($dados = $resultado->fetch_array()) {?>
+                              
                               <tr>
                                 <td><?php echo $dados['cliente']; ?></td>
                                 <td><?php echo $dados['equipamento']; ?></td>
                                 <td><?php echo $dados['descricao']; ?></td>
                                 <td><?php echo $dados['pecas']; ?></td>
+                                <td><?php echo $dados['vcust_peca']; ?></td>
                                 <td><?php echo $dados['valor_pecas']; ?></td>
                                 <td><?php echo $dados['valor_total']; ?></td>
                                 <td><?php echo $dados['dat_exec']; ?></td>
@@ -148,7 +175,7 @@ $resultado = mysqli_query($connect, $sql);
                                 }else {
                                   echo 'SIM'; }?></td>
                                 <td><button class="btn btn-primary btn-sm" onclick="editar(<?php echo $dados['id_servico'];?>)"><i class="fa fa-pencil"></i></button></td>
-                                <td><button class="btn btn-danger btn-sm" onclick="excluir(<?php echo $dados['id_servico'];?>)"><i class="fa fa-trash"></i></button></td>
+                                <td><button id="mod" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop" onClick="excluir(<?php echo $dados['id_servico'];?>)"><i class="fa fa-trash"></i></button></td>
                               </tr><?php 
                             }}else {?>
                               <td id="tdnull"colspan="8">Nenhum serviço Cadastrado</td><?php
@@ -212,3 +239,6 @@ $resultado = mysqli_query($connect, $sql);
 <script src="bootstrap/gentelella-master/vendors/starrr/dist/starrr.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="bootstrap/gentelella-master/build/js/custom.min.js"></script>    
+<!-- jQuery format Money -->
+<script src="//raw.github.com/plentz/jquery-maskmoney/master/jquery.maskMoney.js" type="text/javascript"></script>
+<script src="/script/listaServicos.js"></script>

@@ -58,7 +58,7 @@ $resultado = mysqli_query($connect, $sql);
                       <li><a href="listaClientes.php">Cliente</a></li>
                       <li><a href="listaservicos.php">Serviços</a></li>
                       <li><a href="financeiro.php">Financeiro</a></li>
-                      <li><a href="agenda.php">Agenda</a></li>
+                      <li><a href="listaAgenda.php">Agenda</a></li>
                     </ul>
                   </li>
                 </ul>

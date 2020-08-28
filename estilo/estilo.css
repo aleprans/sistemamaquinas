@@ -5,7 +5,7 @@
 }
 */
 div#central {
- margin: 100px  0px 0px 200px;
+ margin: 110px  0px 0px 200px;
 }
 
 button#enviar {
@@ -15,3 +15,10 @@ button#enviar {
 button#cancelar {
   margin: 0px 1px 0px 10px;
 }
+
+div#msg {
+  width: 80%;
+  position: fixed;
+  text-align: center;
+}
+

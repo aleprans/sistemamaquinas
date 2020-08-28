@@ -7,50 +7,6 @@ $resultado = mysqli_query($connect, $sql);
 
 ?>
 
-<style>
-
-textarea#desc {
-  margin-bottom: 20px;
- 
-}
-
-textarea#pec {
-  margin-bottom: 20px;
-  margin-right: 0px;
- 
-}
-
-input#equip {
-  margin-bottom: 10px;
-}
-
-input#fim {
-  margin: 30px 0px 10px 0px;
-}
-
-label#lfim {
-  margin-bottom: 50px;
-}
-
-select#cliente {
-  margin-bottom: 20px;
-}
-
-div#central {
- margin: 50px  0px 0px 200px;
-}
-
-button#enviar {
-  margin: 10px 10px 0px 0px;
-}
-
-button#cancelar {
-  margin: 10px 1px 0px 10px;
-}
-
-</style>
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -62,6 +18,7 @@ button#cancelar {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="estilo/servico.css">
 	  
     <title>Control Maquinas</title>
 
@@ -124,7 +81,7 @@ button#cancelar {
                       <li><a href="listaClientes.php">Cliente</a></li>
                       <li><a href="listaservicos.php">Serviços</a></li>
                       <li><a href="financeiro.php">Financeiro</a></li>
-                      <li><a href="agenda.php">Agenda</a></li>
+                      <li><a href="listaAgenda.php">Agenda</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -150,7 +107,9 @@ button#cancelar {
         </div>
 
         <div class="right_col" role="main">
-          <h3>Serviços</h3>
+        <div id="msg" class="alert alert-success fade show" role="alert" style="opacity:0; text-align: center"></div>
+       
+        <h3 id="title">Serviços</h3>
           
         <div id="central" name="central">
           <form id="form" name="form">
@@ -166,38 +125,45 @@ button#cancelar {
             </select >
             <input type="hidden" name="id_serv" id="id_serv">
             </div>
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-4">
             <label for="equip">Equipamento: </label>
             <input type="text" name="equip" id="equip" class="form-control" placeholder="Equipamento do cliente" autocomplete="off" maxlength="30" disabled="true"><br>
           </div>
-          <div class="col-sm-6 col-md-4">
+          <div class="col-sm-6 col-md-5">
             <label for="desc">Descrição: </label>
-            <textarea name="desc" id="desc" cols="70" rows="4" maxlength="350" placeholder="Descrição do serviço executado" autocomplete="off" disabled="true"></textarea><br>
+            <textarea name="desc" id="desc" cols="80" rows="4" class="form-control"  maxlength="350" placeholder="Descrição do serviço executado" autocomplete="off" disabled="true"></textarea><br>
           </div>
-          <div class="col-sm-6 col-md-4">
+          <div class="col-sm-6 col-md-5">
             <label for="pec">Peças: </label>
-            <textarea name="pec" id="pec" cols="70" rows="4" maxlength="350" placeholder="Peças que foram trocadas" autocomplete="off" disabled="true"></textarea>
+            <textarea name="pec" id="pec" cols="80" rows="4" class="form-control" maxlength="350" placeholder="Peças que foram trocadas" autocomplete="off" disabled="true"></textarea><br>
           </div>
           <div class="col-sm-6 col-md-2">
-            <input type="checkbox" name="fim" id="fim" disabled="true"><br>
             <label for="fim" id="lfim">Finalizado: </label>
-          </div>  
-          <div class="col-sm-6 col-md-3">
-            <label for="val_pec">Valor peças:  </label>
-            <input type="number" name="val_pec" id="val_pec" class="form-control" placeholder="Valor das peças" maxlength="5" disabled="true"><br>
+            <input type="checkbox" name="fim" id="fim" disabled="true"><br>
           </div>
+
+          <div class="col-sm-6 col-md-3">
+            <label for="valc_pec">Valor  custo peças:  </label>
+            <input type="decimal" name="valc_pec" id="valc_pec" class="form-control" placeholder="Valor das peças" disabled="true" autocomplete="off"><br>
+          </div>
+          
+          <div class="col-sm-6 col-md-3">
+            <label for="val_pec">Valor faturamento peças:  </label>
+            <input type="decimal" name="val_pec" id="val_pec" class="form-control" placeholder="Valor das peças" disabled="true" autocomplete="off"><br>
+          </div>
+          
           <div class="col-sm-6 col-md-3">
             <label for="val">Valor Total:  </label>
-            <input type="decimal" name="val" id="val" class="form-control" placeholder="Valor Total do serviço" disabled="true"><br>
+            <input type="decimal" name="val" id="val" class="form-control" placeholder="Valor Total do serviço" disabled="true" autocomplete="off"><br>
           </div>
           <div class="col-sm-6 col-md-3">
             <label for="dat">Data de execusão:  </label>
-            <input type="date" name="dat" id="dat" class="form-control" disabled="true"><br>
+            <input type="date" name="dat" id="dat" class="form-control" disabled="true"><br><br>
           </div>
           
           <div class="col-sm-6 col-md-4">
-          <input id="enviar" name="enviar" value="Salvar" type="button" class="btn btn-success btn-lg" onClick="validar()" disabled= "true"></button>
-          <button id="cancelar" type="reset" class="btn btn-cancel btn-lg" onClick="limpar()" >Cancelar</button>
+          <input id="enviar" name="enviar" value="Salvar" type="button" class="btn btn-success btn-lg" onClick="validar()" disabled= "true"></input>
+          <input id="cancelar" type="reset" class="btn btn-cancel btn-lg" onClick="limpar()" value="Cancelar"></input>
           </div>
           </form>  
         </div> 
@@ -246,6 +212,5 @@ button#cancelar {
 <script src="bootstrap/gentelella-master/build/js/custom.min.js"></script>    
 <!--Mascaras-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-
 <script src="/script/servicos.js"></script>
 
