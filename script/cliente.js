@@ -75,14 +75,14 @@ $.ajax({
       setInterval(function(){
         $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
         window.location = "listaClientes.php"
-      }, 5000)
+      }, 3000)
     }else{
       $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
       $('#msg').attr('class', 'alert alert-error')
       $('#msg').text(data.msg)
     setInterval(function(){
       $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-      }, 5000)
+      }, 3000)
     }
   },
   error:function(e){
@@ -104,7 +104,7 @@ function validar() {
     $('#msg').text(msg)
   setInterval(function(){
     $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-  }, 5000)
+  }, 3000)
     $tel.focus()
     $tel.attr('style', 'border-color:red')
     exit
@@ -117,17 +117,16 @@ function validar() {
     $('#msg').text(msg)
   setInterval(function(){
     $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-  },5000)
+  },3000)
     $nam.focus()
     $nam.attr('style', 'border-color:red')
     exit
   }
 enviar()
 }
-
-
+ 
 // Pesquisar ID na url
-
+ 
 $(document).ready(function(){
   function queryString(parameter) {
     var loc = location.search.substring(1, location.search.length)
@@ -145,13 +144,12 @@ $(document).ready(function(){
         return undefined
     }
   }
-  
   var id_cliente = queryString("id_cli")
-
 
   // Pesquisa Cliente pela url
 
-  if (id_cliente) {
+  
+  if (id_cliente != undefined) {
     
     $.getJSON('pesq_cliente.php', {
       id_cliente: id_cliente

@@ -158,7 +158,9 @@ $resultado = mysqli_query($connect, $sql);
                           <?php 
                           $row = mysqli_num_rows($resultado);
                           if ($row > 0) {
-                            while ($dados = $resultado->fetch_array()) {?>
+                            while ($dados = $resultado->fetch_array()) {
+                              $dt1 = $dados['dat_exec']; 
+                              $dt = DateTime::createFromFormat("d-m-Y", $dt1);?>
                               
                               <tr>
                                 <td><?php echo $dados['cliente']; ?></td>
@@ -168,7 +170,7 @@ $resultado = mysqli_query($connect, $sql);
                                 <td><?php echo $dados['vcust_peca']; ?></td>
                                 <td><?php echo $dados['valor_pecas']; ?></td>
                                 <td><?php echo $dados['valor_total']; ?></td>
-                                <td><?php echo $dados['dat_exec']; ?></td>
+                                <td><?php echo $dt1; ?></td>
                                 <td><?php 
                                 if ($dados['fim'] == 0) {
                                   echo 'NÂO';

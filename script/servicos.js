@@ -124,7 +124,7 @@ function validar() {
     $('#msg').text(msg)
   setInterval(function(){
     $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-  }, 5000)
+  }, 3000)
     $equip.focus()
     $equip.attr('style', 'border-color:red')
     exit
@@ -136,7 +136,7 @@ function validar() {
     $('#msg').text(msg)
   setInterval(function(){
     $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-  }, 5000)
+  }, 3000)
     $desc.focus()
     $desc.attr('style', 'border-color:red')
     exit
@@ -150,7 +150,7 @@ function validar() {
       $('#msg').text(msg)
     setInterval(function(){
       $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-    }, 5000)
+    }, 3000)
       $cpec.focus()
       $cpec.attr('style', 'border-color:red')
       exit
@@ -164,7 +164,7 @@ function validar() {
       $('#msg').text(msg)
     setInterval(function(){
       $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-    }, 5000)
+    }, 3000)
       $vpec.focus()
       $vpec.attr('style', 'border-color:red')
       exit
@@ -177,7 +177,7 @@ function validar() {
     $('#msg').text(msg)
   setInterval(function(){
     $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-  }, 5000)
+  }, 3000)
     $vtot.focus()
     $vtot.attr('style', 'border-color:red')
     exit
@@ -189,7 +189,7 @@ function validar() {
     $('#msg').text(msg)
   setInterval(function(){
     $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-  }, 5000)
+  }, 3000)
     $dte.focus()
     $dte.attr('style', 'border-color:red')
     exit
@@ -240,7 +240,7 @@ function enviar(){
       setInterval(function(){
         $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
         window.location = "listaservicos.php"
-      }, 5000)
+      }, 3000)
       
       }else{
         $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
@@ -248,7 +248,7 @@ function enviar(){
         $('#msg').text(data.msg)
       setInterval(function(){
         $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-      }, 5000)
+      }, 3000)
       }
     },
     error:function(e){

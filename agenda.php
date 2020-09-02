@@ -127,7 +127,7 @@ $resultado = mysqli_query($connect, $sql);
               
               <?php }?>
             </select >
-                <button type="button" id="addcli" title="incluir Novo cliente" data-toggle="tooltip" data-placement="right" class="btn btn-success btn-sm" onClick="window.location ='clientes.php'"><i class="fa fa-plus-square"></i></button>
+                <button type="button" id="addcli" title="incluir Novo cliente" data-toggle="tooltip" data-placement="right" class="btn btn-success btn-sm" onClick="window.location = 'clientes.php'"><i class="fa fa-plus-square"></i></button>
             </div>
             <div class="form-group col-md-3">
                 <label for="cpec">Data:</label>

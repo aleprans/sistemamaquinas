@@ -2,8 +2,16 @@ $(document).ready(function(){
     $('#cliente').select2()
 })
 
+function editar(id_agenda) {
+    var passarvalor = function(valor){
+     window.location = "clientes.php?id_age="+valor
+    }
+    passarvalor(id_agenda)
+}
+
 // variaveis comuns
 var $id_age = queryString("id_age")
+var $id_cli = queryString("id_cli")
 var $cliente = $('#cliente')
 var $data = $('#dtage')
 var $hora = $('#hrage')
@@ -52,9 +60,12 @@ function queryString(parameter) {
 
 
 
+// Pesquisa por id do cliente
 
-
-//Pesquisa por id 
+if ($id_cli) {
+    $cliente.val($id_cli).trigger('change')
+}
+//Pesquisa por id do agendamento 
 if ($id_age) {
     $btnSalvar.attr('disabled', false)
     $.getJSON('pesqagen.php',{
@@ -97,7 +108,7 @@ function validar(){
         $('#msg').text(msg)
       setInterval(function(){
         $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-      }, 5000)
+      }, 3000)
         $data.focus()
         $data.attr('style', 'border-color:red')
         exit
@@ -108,7 +119,7 @@ function validar(){
         $('#msg').text(msg)
       setInterval(function(){
         $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-      }, 5000)
+      }, 3000)
         $hora.focus()
         $hora.attr('style', 'border-color:red')
         exit
@@ -143,17 +154,17 @@ function enviar(){
                 $('#msg').text(data.msg)
                 setInterval(function(){
                     $('#msg').attr('style', 'opacity:0; transition: opacity 2s')
-                    // window.location = 'listaAgenda.php'
-                }, 5000)
+                    window.location = 'listaAgenda.php'
+                }, 3000)
             }else {
                  $('#msg').attr('style', 'opacity:1; transition: opacity 2s')
                 $('#msg').attr('class', 'alert alert-error')
                 $('#msg').text(data.msg)
                 setInterval(function(){
                     $('#msg').attr('style', 'opacity:0; transition: opacity 2s')
-                    // window.location = 'listaAgenda.php'
-                }, 5000)
+                }, 3000)
             }
         }
     })
 }
+

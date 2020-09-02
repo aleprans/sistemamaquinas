@@ -3,33 +3,39 @@
 include_once('connect.php');
 
 function retorna($dtini, $dtfin, $conc, $connect) {
+    
     if ($dtini == "") {
         $dtini = "1900-01-01";
     }
 
-    if ($dtfin == "") {
-        $dtfin = date('Y-m-d');
+    if ($dtfin == "" && $conc == 2) {
+        $sql =  "select a.*,  b.* from agenda as a inner join clientes as b on b.id_cliente = a.id_cliente where ag_data > '$dtini' order by ag_data;";
+    }else if($dtfin == "" && $conc != 2) {
+        $sql =  "select a.*,  b.* from agenda as a inner join clientes as b on b.id_cliente = a.id_cliente where conc = '$conc' and ag_data > '$dtini' order by ag_data;";
+    }else if ($dtfin != "" && $conc == 2) {
+        $sql =  "select a.*,  b.* from agenda as a inner join clientes as b on b.id_cliente = a.id_cliente where ag_data between '$dtini' and '$dtfin' order by ag_data;";
+    }else if ($dtfin != "" && $conc != 2) {
+        $sql =  "select a.*,  b.* from agenda as a inner join clientes as b on b.id_cliente = a.id_cliente where ag_data between '$dtini' and '$dtfin' and conc = '$conc' order by ag_data;";
     }
 
-    if ($conc == 2) {
-        $sql = "select a.*,  b.* from agenda as a inner join clientes as b on b.id_cliente = a.id_cliente where ag_data between '$dtini' and '$dtfin';";
-    }else {
-        $sql = "select a.*,  b.* from agenda as a inner join clientes as b on b.id_cliente = a.id_cliente where ag_data between '$dtini' and '$dtfin' and conc = $conc;";
-    }
-
-    
     $resultado = mysqli_query($connect, $sql);
     foreach ($resultado as $key => $row_agenda) {
-    $dados[$key]['id_agenda'] = $row_agenda['id_agenda'];
-    $dados[$key]['ag_data'] = $row_agenda['ag_data'];
-    $dados[$key]['ag_hora'] = $row_agenda['ag_hora'];
-    $dados[$key]['conc'] = $row_agenda['conc'];
-    $dados[$key]['cliente'] = $row_agenda['cliente'];
-    $dados[$key]['endereco'] = $row_agenda['endereco'];
-    $dados[$key]['num'] = $row_agenda['num'];
-    $dados[$key]['bar'] = $row_agenda['bairro'];
-    $dados[$key]['cel'] = $row_agenda['celular'];
-    
+        $dados[$key]['id_agenda'] = $row_agenda['id_agenda'];
+        $dados[$key]['ag_data'] = $row_agenda['ag_data'];
+        $dados[$key]['ag_hora'] = $row_agenda['ag_hora'];
+        $dados[$key]['conc'] = $row_agenda['conc'];
+        $dados[$key]['cliente'] = $row_agenda['cliente'];
+        $dados[$key]['endereco'] = $row_agenda['endereco'];
+        $dados[$key]['num'] = $row_agenda['num'];
+        $dados[$key]['bar'] = $row_agenda['bairro'];
+        $dados[$key]['cel'] = $row_agenda['celular'];
+        if(strtotime($dados[$key]['ag_data']) < strtotime(date('Y-m-d')) && $dados[$key]['conc'] == 0 ){
+           $dados[$key]['bgdanger'] = 'danger';
+        }
+        if(strtotime($dados[$key]['ag_data']) == strtotime(date('Y-m-d')) && $dados[$key]['conc'] == 0 ){
+            $dados[$key]['bgdanger'] = 'success';
+         }
+        
     }
     return json_encode($dados);
 }

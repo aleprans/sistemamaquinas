@@ -1,11 +1,12 @@
   var $dtini = $('#dtini')
   var $dtfin = $('#dtfim')
   var $con = $('#con')
+  var $hoje = new Date().toDateString()
   var msg = "Campo inválido!"
 $(document).ready(function(){
   filtrar()
 })
-
+// passar ID pelo url
 function editar(id_agenda) {
     var passarvalor = function(valor){
      window.location = "agenda.php?id_age="+valor
@@ -26,14 +27,14 @@ function excluir(id_age) {
               setInterval(function(){
                 $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
                 window.location = "listaAgenda.php"
-              }, 5000)
+              }, 3000)
             }else {
                 $('#msg').attr('style', 'opacity:1; transition:opacity 2s')
                 $('#msg').attr('class', 'alert alert-error')
                 $('#msg').text(data.msg)
               setInterval(function(){
                 $('#msg').attr('style', 'opacity:0; transition:opacity 2s')
-              }, 5000)
+              }, 3000)
             }
         }
     )}
@@ -62,13 +63,14 @@ function filtrar() {
           var $visit = "Sim"
         }
 
+        $bgdanger = data[key].bgdanger
         var $rows = $tabela.insertRow()
-        $rows.innerHTML = "<td>"+data[key].ag_data+
-        "</td><td>"+data[key].ag_hora+
-        "</td><td>"+data[key].cliente+
-        "</td><td>"+data[key].endereco+", "+data[key].num+" - "+data[key].bar+
-        "</td><td>"+$visit+
-        "</td><td><button class='btn btn-primary btn-sm' onclick='editar("+data[key].id_agenda+
+        $rows.innerHTML ="<td class="+$bgdanger+">"+tratardata(data[key].ag_data)+
+        "</td><td class="+$bgdanger+">"+data[key].ag_hora+
+        "</td><td class="+$bgdanger+">"+data[key].cliente+
+        "</td><td class="+$bgdanger+">"+data[key].endereco+", "+data[key].num+" - "+data[key].bar+
+        "</td><td class="+$bgdanger+">"+$visit+
+        "</td><td class="+$bgdanger+">"+"<button class='btn btn-primary btn-sm' onclick='editar("+data[key].id_agenda+
         ")'><i class='fa fa-pencil'></i></button><button class='btn btn-danger btn-sm' onclick='excluir("+data[key].id_agenda+
         ")'><i class='fa fa-trash'></i></button></td>"
       }
@@ -79,4 +81,7 @@ function Limparfiltro() {
   $dtfin.val("")
   $con.val(2)
   filtrar()
+}
+function tratardata(dt){
+   return dt.split('-')[2]+'/'+dt.split('-')[1]+'/'+dt.split('-')[0]
 }

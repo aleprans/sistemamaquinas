@@ -11,11 +11,9 @@ if ($id_age > 0) {
     $sql = "UPDATE agenda SET id_cliente = '$id_cliente', ag_data = '$ag_data', ag_hora = '$ag_hora', conc = $conc WHERE id_agenda = '$id_age';";
     $resultado = mysqli_query($connect, $sql);
 }else {
-    echo 'teste'
-    $sql = "INSERT INTO agenda (id_cliente, ad_data, ag_hora, conc) VALUES ('$id_cliente', '$ag_data', '$ag_hora', $conc);";
+    $sql = "INSERT INTO agenda (id_cliente, ag_data, ag_hora, conc) VALUES ('$id_cliente', '$ag_data', '$ag_hora', $conc);";
     $resultado = mysqli_query($connect, $sql);
 }
-exit;
 
 if ($resultado) {
     echo json_encode(['status'=> true, 'msg'=> 'Solicitação realizada com sucesso!']);

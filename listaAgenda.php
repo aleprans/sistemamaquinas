@@ -82,7 +82,7 @@
                 </ul>
               </div>
             </div>
- 
+            
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
@@ -117,9 +117,9 @@
           <div class="form-group col-md-2">
             <label for="con" >Vizitado:</label>
             <select name="con" id="con" class="form-control" hint="teste">
-              <option value="2">Todos</option>
               <option value="0">Não</option>
               <option value="1">Sim</option>
+              <option value="2">Todos</option>
             </select>
           </div>
           <div class="form-group col-md-2" id="button2">
@@ -149,7 +149,7 @@
                           </tbody>
                           
                     </table>
-                    <button class="btn btn-success btn-lg"><i class="fa fa-user-plus" onclick="window.location = 'agenda.php'"></i> </button>
+                    <button class="btn btn-success btn-lg" onclick="window.location = 'agenda.php'"><i class="fa fa-user-plus"></i> </button>
                     </div>
                   </div>
                 </div>
