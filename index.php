@@ -93,10 +93,9 @@ $resultado = mysqli_query($connect, $sql);
               <div class="row">
                 <div class="col-md-12">
                   <div class="card">
-                    <!--div class="card-body col-sm-12 col-xs-12"-->
-                    <div class = "table-responsive">
-                      
-                    </div>
+                  <?php
+                  include_once('dashboardbars.php');
+                  ?>
                   </div>
                 </div>
               </div>
@@ -149,4 +148,5 @@ $resultado = mysqli_query($connect, $sql);
 <!-- starrr -->
 <script src="bootstrap/gentelella-master/vendors/starrr/dist/starrr.js"></script>
 <!-- Custom Theme Scripts -->
-<script src="bootstrap/gentelella-master/build/js/custom.min.js"></script>    
+<script src="bootstrap/gentelella-master/build/js/custom.min.js"></script>
+
