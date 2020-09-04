@@ -1,5 +1,6 @@
 <?php
 
+include_once('autentica.php');
 include_once('connect.php');
 
 $sql = "select month(dat_exec) AS mes , year(dat_exec) as ano, sum(valor_total) as total, sum(vcust_peca) as cpec,

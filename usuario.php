@@ -1,8 +1,8 @@
 <?php
-
 session_start();
 
 include_once('autentica.php');
+include_once('connect.php');
 
 ?>
 
@@ -17,7 +17,7 @@ include_once('autentica.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/estilo/estilofinac.css">
+    <link rel="stylesheet" href="/estilo/usuario.css">
 	  
     <title>Control Maquinas</title>
 
@@ -78,110 +78,80 @@ include_once('autentica.php');
             <h2><?php echo $_SESSION['usuario']?></h2>
           </div>
         </div>
-            <br />
+
+        <br />
 
           
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+          <div class="menu_section">
                 
-              <ul class="nav side-menu">
-                  <li><a href="inicial.php"><i class="fa fa-home"></i> Pagina Inicial </a></li>
-                  <li><a><i class="fa fa-edit"></i> Menu do sistema <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="listaClientes.php">Cliente</a></li>
-                      <li><a href="listaservicos.php">Serviços</a></li>
-                      <li><a href="financeiro.php">Financeiro</a></li>
-                      <li><a href="listaAgenda.php">Agenda</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="logout.php">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            
+            <ul class="nav side-menu">
+              <li><a href="inicial.php"><i class="fa fa-home"></i> Pagina Inicial </a></li>
+              <li><a><i class="fa fa-edit"></i> Menu do sistema <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="listaClientes.php">Cliente</a></li>
+                <li><a href="listaservicos.php">Serviços</a></li>
+                <li><a href="financeiro.php">Financeiro</a></li>
+                <li><a href="listaAgenda.php">Agenda</a></li>
+              </ul>
+              </li>
+            </ul>
           </div>
         </div>
+ 
+        <div class="sidebar-footer hidden-small">
+          <a data-toggle="tooltip" data-placement="top" title="Settings">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+          </a>
+          <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+          </a>
+          <a data-toggle="tooltip" data-placement="top" title="Lock">
+            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+          </a>
+          <a data-toggle="tooltip" data-placement="top" title="Logout" href="logout.php">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+          </a>
+        </div>
+            
+      </div>
+    </div>
 
         <div class="right_col" role="main">
-        <div id="msg" class="alert alert-success fade show" role="alert" style="opacity:0; text-align: center"></div>
-          <h1 style="margin-bottom: 40px">Agendamentos</h1>
+        <div id="msg" class="alert alert-success fade show" role="alert" style="opacity:0; text-align: center" ></div>
+          <h1>Usuarios</h1>
           
-        <div class="form-row">
-          <div class="form-group col-md-2">
-            <label >Data inicial:</label>
-            <input type="date" id="dtini" class="form-control">
-          </div>
-          <div class="form-group col-md-2">
-            <label >Data final:</label>
-            <input type="date" id="dtfim" class="form-control">
-          </div>
-          <div class="form-group col-md-2">
-            <label for="con" >Vizitado:</label>
-            <select name="con" id="con" class="form-control" hint="teste">
-              <option value="0">Não</option>
-              <option value="1">Sim</option>
-              <option value="2">Todos</option>
-            </select>
-          </div>
-          <div class="form-group col-md-2" id="button2">
-            <input type="button" class="form-control" value="Limpar" onClick="Limparfiltro()">
-          </div>
-          <div class="form-group col-md-2" id="button">
-            <input type="button" class="form-control" value="Buscar" onClick="filtrar()">
-          </div>
-          <div class="content">
-            <div class="animated fadeIn">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card">
-                    <div class = "table-responsive">
-                      <table id="id_table_usuario" class="table table-hover" data-search="true" data-sort-class="table-active" data-sortable="true" data-locale="pt-BR" data-height="550" data-toolbar=".toolbar" data-search="true"  data-show-toggle="true"  data-pagination="true">
-                        <thead>
-                          <tr>
-                            <th data-sortable="true" data-field="id" >Data</th>
-                            <th >Hora</th>
-                            <th >Cliente</th>
-                            <th >Endereço</th>
-                            <th >Visitado</th>
-                          </tr>
-                        </thead>
-                          <tbody id="tab">
-
-                          </tbody>
-                          
-                    </table>
-                    <button class="btn btn-success btn-lg" onclick="window.location = 'agenda.php'"><i class="fa fa-user-plus"></i> </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div id="theModal" class="modal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
-                  <div class="modal-content">
-                  </div>
-                </div>
-              </div>
+        <div id="central" name="central">
+          <form action="" method="post" id="form">
             
+            <div class="form-group col-md-4" id="usu">
+                <input type="hidden" name="id_usu">
+                <label for="usu">Usuario:</label>
+                <input type="text" id="usu" name="usu" class="form-control" autocomplete="off" >
             </div>
+            
+            <div class="form-group col-md-4">
+              <label for="nome">nome:</label>
+              <input type="text" id="nome" name="nome" class="form-control" autocomplete="off" disabled="true">
+            </div>
+         
+            <div class="form-group col-md-4">
+              <label for="sen">Senha:</label>
+              <input type="password" id="sen" name="sen" class="form-control" autocomplete="off" disabled="true">
+            </div>
+          
+            <div class="form-group col-md-4">
+              <label for="csen">Confirmação de senha:</label>
+              <input type="password" id="csen" name="csen" class="form-control" autocomplete="off" disabled="true">
+            </div>
+          
+          
+          <div class="col-sm-5 col-md-5">
+          <input id="enviar" name="enviar" value="Salvar" type="button" class="btn btn-success btn-lg" onClick="validar()" disabled="true"></button>
+          <button id="cancelar" type="reset" class="btn btn-cancel btn-lg" onClick="limpar()" >Cancelar</button>
           </div>
-          </div>
-    </div>
           </form>  
+        </div> 
         </div>
       </div>
     </div>
@@ -226,9 +196,9 @@ include_once('autentica.php');
 <!-- Custom Theme Scripts -->
 <script src="bootstrap/gentelella-master/build/js/custom.min.js"></script>    
 <!--Mascaras-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
-<script src="/script/listaAgenda.js"></script>
+<script src="/script/usuario.js"></script>
 <script type="text/javascript">
-$("#tel").mask("(00)00000-0000")
+$("#CPF").mask("000.000.000-00")
 </script>

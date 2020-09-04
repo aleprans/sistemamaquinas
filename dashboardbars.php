@@ -1,5 +1,6 @@
 <?php
 
+include_once('autentica.php');
 include_once('connect.php');
 
 $sql = "select month(dat_exec) AS mes , year(dat_exec) as ano, sum(valor_total) as total, sum(vcust_peca) as cpec,
@@ -17,9 +18,9 @@ $resultado = mysqli_query($connect, $sql);
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Mês', 'Fat total', 'Custo peças', 'Total peças'],
+          ['Mês', 'Fat total', 'Total peças', 'Custo peças'],
           <?php while ($dados = $resultado->fetch_array()) { ?>
-            ['<?php echo $dados['mes'];?>',<?php echo $dados['total'];?>,<?php echo $dados['cpec'];?>,<?php echo $dados['vpec'];?>],
+            ['<?php echo $dados['mes'];?>',<?php echo $dados['total'];?>,<?php echo $dados['vpec'];?>,<?php echo $dados['cpec'];?>],
           <?php } ?> 
         ]);
 

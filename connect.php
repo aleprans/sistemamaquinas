@@ -1,4 +1,9 @@
 <?php
+    // $servername = "aalj10eeabm8f0.cuuomrcedmbe.sa-east-1.rds.amazonaws.com:3306";
+    // $username = "controlmaq";
+    // $password = "navigu03";
+    // $db_name = "ebdb";
+
 
     $servername = "localhost:3308";
     $username = "root";

@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+include_once('autentica.php');
+include_once('connect.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -52,17 +60,24 @@
   </head>
 
   <body class="nav-md">
-    <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <br>
-            <div class="navbar nav_title" style="border:0;">
-            <img class="" src="imagens/logo.jpg" style="height: 80px; margin-left: 70px; background-size: contain; background-repeat: no-repeat;background-position: center;">
-            
-            </div>
+  <div class="container body">
+    <div class="main_container">
+      <div class="col-md-3 left_col">
+      <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+          <a href="inicial.php" class="site_title"><img src="/imagens/logo50.jpg" ></img> <span>Control Maq</span></a>
+        </div>
+        <div class="clearfix"></div>
 
-            <div class="clearfix"></div>
+        <div class="profile clearfix">
+          <div class="profile_pic">
+            <img src="/imagens/rosto.jpg"  class="img-circle profile_img">
+          </div>
+          <div class="profile_info">
+            <span>Bem vindo!</span>
+            <h2><?php echo $_SESSION['usuario']?></h2>
+          </div>
+        </div>
             <br />
 
           
@@ -70,7 +85,7 @@
               <div class="menu_section">
                 
               <ul class="nav side-menu">
-                  <li><a href="index.php"><i class="fa fa-home"></i> Pagina Inicial </a></li>
+                  <li><a href="inicial.php"><i class="fa fa-home"></i> Pagina Inicial </a></li>
                   <li><a><i class="fa fa-edit"></i> Menu do sistema <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="listaClientes.php">Cliente</a></li>
@@ -93,7 +108,7 @@
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="logout.php">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -149,7 +164,6 @@
             </span>
           </div>
     </div>
-          </form>  
         </div>
       </div>
     </div>
