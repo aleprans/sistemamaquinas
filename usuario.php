@@ -17,7 +17,7 @@ include_once('connect.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/estilo/usuario.css">
+    <link rel="stylesheet" href="estilo/usuario.css">
 	  
     <title>Control Maquinas</title>
 
@@ -59,96 +59,52 @@ include_once('connect.php');
 
   </head>
 
-  <body class="nav-md">
-  <div class="container body">
-    <div class="main_container">
-      <div class="col-md-3 left_col">
-      <div class="left_col scroll-view">
-        <div class="navbar nav_title" style="border: 0;">
-          <a href="inicial.php" class="site_title"><img src="/imagens/logo50.jpg" ></img> <span>Control Maq</span></a>
-        </div>
-        <div class="clearfix"></div>
-
-        <div class="profile clearfix">
-          <div class="profile_pic">
-            <img src="/imagens/rosto.jpg"  class="img-circle profile_img">
-          </div>
-          <div class="profile_info">
-            <span>Bem vindo!</span>
-            <h2><?php echo $_SESSION['usuario']?></h2>
-          </div>
-        </div>
-
-        <br />
-
-          
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-          <div class="menu_section">
-                
-            <ul class="nav side-menu">
-              <li><a href="inicial.php"><i class="fa fa-home"></i> Pagina Inicial </a></li>
-              <li><a><i class="fa fa-edit"></i> Menu do sistema <span class="fa fa-chevron-down"></span></a>
-              <ul class="nav child_menu">
-                <li><a href="listaClientes.php">Cliente</a></li>
-                <li><a href="listaservicos.php">Serviços</a></li>
-                <li><a href="financeiro.php">Financeiro</a></li>
-                <li><a href="listaAgenda.php">Agenda</a></li>
-              </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
- 
-        <div class="sidebar-footer hidden-small">
-          <a data-toggle="tooltip" data-placement="top" title="Settings">
-            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-          </a>
-          <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-          </a>
-          <a data-toggle="tooltip" data-placement="top" title="Lock">
-            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-          </a>
-          <a data-toggle="tooltip" data-placement="top" title="Logout" href="logout.php">
-            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-          </a>
-        </div>
-            
-      </div>
-    </div>
-
+  <body>
+        <?php
+        include_once('menu.php');
+        ?>
         <div class="right_col" role="main">
         <div id="msg" class="alert alert-success fade show" role="alert" style="opacity:0; text-align: center" ></div>
           <h1>Usuarios</h1>
-          
+          <input type="hidden" name="nivlog" id="nivlog" value="<?php echo $_SESSION['usuario']['niv']?>">
+          <input type="hidden" name="usulog" id="usulog" value="<?php echo $_SESSION['usuario']['usu']?>">
         <div id="central" name="central">
           <form action="" method="post" id="form">
             
             <div class="form-group col-md-4" id="usu">
-                <input type="hidden" name="id_usu">
+                <input type="hidden" name="id_usu" id="id_usu">
                 <label for="usu">Usuario:</label>
-                <input type="text" id="usu" name="usu" class="form-control" autocomplete="off" >
+                <input type="text" id="usuario" name="usuario" class="form-control" autocomplete="off" maxlength="8">
             </div>
             
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-5">
               <label for="nome">nome:</label>
-              <input type="text" id="nome" name="nome" class="form-control" autocomplete="off" disabled="true">
+              <input type="text" id="nome" name="nome" class="form-control" autocomplete="off" disabled="true" maxlength="45">
+            </div>
+            
+            <div class="form-group col-md-3">
+              <label for="nivel">Nivel de acesso:</label>
+              <select name="nivel" id="nivel" class="form-control" disabled="true">
+                <option value="0">Usuário</option>
+                <option value="1">Administrador</option>
+                </select>
             </div>
          
             <div class="form-group col-md-4">
               <label for="sen">Senha:</label>
-              <input type="password" id="sen" name="sen" class="form-control" autocomplete="off" disabled="true">
+              <input type="password" id="sen" name="sen" class="form-control" autocomplete="off" disabled="true" maxlength="8">
             </div>
           
             <div class="form-group col-md-4">
               <label for="csen">Confirmação de senha:</label>
-              <input type="password" id="csen" name="csen" class="form-control" autocomplete="off" disabled="true">
+              <input type="password" id="csen" name="csen" class="form-control" autocomplete="off" disabled="true" maxlength="8">
             </div>
           
           
           <div class="col-sm-5 col-md-5">
           <input id="enviar" name="enviar" value="Salvar" type="button" class="btn btn-success btn-lg" onClick="validar()" disabled="true"></button>
-          <button id="cancelar" type="reset" class="btn btn-cancel btn-lg" onClick="limpar()" >Cancelar</button>
+          <input id="excluir" name="excluir" value="excluir" type="button" class="btn btn-danger btn-lg" onClick="deletar()" disabled="true"></button>
+          <button id="cancelar" type="reset" class="btn btn-cancel btn-lg" onClick="desabilitar()" >Cancelar</button>
           </div>
           </form>  
         </div> 
@@ -198,7 +154,4 @@ include_once('connect.php');
 <!--Mascaras-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
-<script src="/script/usuario.js"></script>
-<script type="text/javascript">
-$("#CPF").mask("000.000.000-00")
-</script>
+<script src="script/usuario.js"></script>

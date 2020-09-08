@@ -27,8 +27,9 @@ CREATE TABLE `usuarios` (
   `usuario` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
   `senha` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `nome` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `nivel` int(11) NOT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +38,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','administrador');
+INSERT INTO `usuarios` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','administrador',1),(2,'aleprans','827ccb0eea8a706c4c34a16891f84e7b','alexandre pranskunas',1),(4,'anaprans','827ccb0eea8a706c4c34a16891f84e7b','ana paula dos santos',0),(5,'teste','912ec803b2ce49e4a541068d495ab570','teste',1),(6,'natalia','912ec803b2ce49e4a541068d495ab570','natalia',0);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-04 17:50:08
+-- Dump completed on 2020-09-08 17:54:01

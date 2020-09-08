@@ -17,7 +17,7 @@ include_once('connect.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/estilo/estilofinac.css">
+    <link rel="stylesheet" href="estilo/estilofinac.css">
 	  
     <title>Control Maquinas</title>
 
@@ -59,63 +59,10 @@ include_once('connect.php');
 
   </head>
 
-  <body class="nav-md">
-  <div class="container body">
-    <div class="main_container">
-      <div class="col-md-3 left_col">
-      <div class="left_col scroll-view">
-        <div class="navbar nav_title" style="border: 0;">
-          <a href="inicial.php" class="site_title"><img src="/imagens/logo50.jpg" ></img> <span>Control Maq</span></a>
-        </div>
-        <div class="clearfix"></div>
-
-        <div class="profile clearfix">
-          <div class="profile_pic">
-            <img src="/imagens/rosto.jpg"  class="img-circle profile_img">
-          </div>
-          <div class="profile_info">
-            <span>Bem vindo!</span>
-            <h2><?php echo $_SESSION['usuario']?></h2>
-          </div>
-        </div>
-            <br />
-
-          
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                
-              <ul class="nav side-menu">
-                  <li><a href="inicial.php"><i class="fa fa-home"></i> Pagina Inicial </a></li>
-                  <li><a><i class="fa fa-edit"></i> Menu do sistema <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="listaClientes.php">Cliente</a></li>
-                      <li><a href="listaservicos.php">Serviços</a></li>
-                      <li><a href="financeiro.php">Financeiro</a></li>
-                      <li><a href="listaAgenda.php">Agenda</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
- 
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="logout.php">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            
-          </div>
-        </div>
-
+  <body>
+        <?php
+        include_once('menu.php');
+        ?>
         <div class="right_col" role="main">
         <div id="msg" class="alert alert-success fade show" role="alert" style="opacity:0; text-align: center"></div>
           <h1 style="margin-bottom: 40px">Controle Financeiro</h1>
@@ -210,7 +157,7 @@ include_once('connect.php');
 <!--Mascaras-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
-<script src="/script/financeiro.js"></script>
+<script src="script/financeiro.js"></script>
 <script type="text/javascript">
 $("#tel").mask("(00)00000-0000")
 </script>

@@ -8,6 +8,7 @@ function retorna($usuario, $connect) {
     $row_usu = mysqli_fetch_assoc($resultado);
     $dados['id_usu'] = $row_usu['id_usuario'];
     $dados['nome'] = $row_usu['nome'];
+    $dados['niv'] = $row_usu['nivel'];
 
     return json_encode($dados);
 }

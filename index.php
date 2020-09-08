@@ -63,7 +63,7 @@
 <div class="clearfix"></div>
 <br />
 <div>
-<h1><img src="/imagens/logo50.jpg"></img> ControlMaq</h1>
+<h1><img src="imagens/logo50.jpg"></img> ControlMaq</h1>
 <p>©2020 All Rights Reserved. ControlMaq. Privacy and Terms</p>
 </div>
 </div>
@@ -111,4 +111,4 @@
 <script src="bootstrap/gentelella-master/build/js/custom.min.js"></script>    
 <!--Mascaras-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-<script src="/script/login.js"></script>
+<script src="script/login.js"></script>

@@ -1,15 +1,23 @@
 <?php
 include_once('connect.php');
 
+$id_usuario = mysqli_escape_string($connect, $_POST['id_usuario']);
 $usuario = mysqli_escape_string($connect, $_POST['usuario']);
 $nome = mysqli_escape_string($connect, $_POST['nome']);
 $senha = mysqli_escape_string($connect, $_POST['senha']);
+$nivel = mysqli_escape_string($connect, $_POST['nivel']);
 
-if ($usuario > 0) {
-    $sql = "UPDATE clientes SET cliente = '$nome', endereco = '$end', num = '$num', bairro = '$bairro', cidade = '$cidade', uf = '$estado', celular = '$telefone' WHERE  id_cliente = '$id_cliente'";
+
+
+if ($id_usuario > 0) {
+    if($senha == null){
+        $sql = "UPDATE usuarios SET usuario = '$usuario', nome = '$nome', nivel = '$nivel'  WHERE  id_usuario = '$id_usuario';";
+    }else{
+    $sql = "UPDATE usuarios SET usuario= '$usuario', nome = '$nome', senha = md5('$senha'), nivel = '$nivel'  WHERE  id_usuario = '$id_usuario';";
+    }
     $resultado = mysqli_query($connect, $sql);
 } else {
-    $sql = "INSERT INTO clientes(cliente,  endereco, num, bairro, cidade, uf, celular) VALUES ('$nome', '$end', '$num', '$bairro', '$cidade', '$estado', '$telefone')";
+    $sql = "INSERT INTO usuarios(usuario, senha, nome, nivel) VALUES ('$usuario', md5(1234), '$nome', '$nivel');";
     $resultado = mysqli_query($connect, $sql);
 }
 
